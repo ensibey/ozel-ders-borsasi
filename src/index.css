@@ -1,0 +1,160 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #F4F0EA;
+    color: #1C1917;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow-x: hidden;
+    background-image: 
+      radial-gradient(at 50% 0%, rgba(16, 185, 129, 0.07) 0px, transparent 65%),
+      radial-gradient(at 0% 50%, rgba(99, 102, 241, 0.05) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(217, 119, 6, 0.05) 0px, transparent 50%);
+    background-attachment: fixed;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #EBE6DC;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C4BBB0;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #A3988A;
+}
+
+/* Rich Warm Sand & Linen Soft Glass Panels */
+.glass-panel {
+  background: rgba(250, 247, 242, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid #E2DDD5;
+  box-shadow: 0 10px 30px -10px rgba(45, 35, 20, 0.06);
+}
+
+.glass-card {
+  background: #FFFFFF;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid #E5DFD5;
+  color: #1C1917;
+  box-shadow: 0 4px 20px -2px rgba(45, 35, 20, 0.04);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  border-color: rgba(16, 185, 129, 0.6);
+  box-shadow: 0 16px 40px -12px rgba(16, 185, 129, 0.2);
+  transform: translateY(-4px) scale(1.01);
+}
+
+.glass-input {
+  background: #FFFFFF;
+  border: 1px solid #DCD5C9;
+  color: #1C1917;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+}
+
+.glass-input:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+  outline: none;
+}
+
+/* Rich Warm Sand Hybrid Panel */
+.glass-hybrid-panel {
+  background: linear-gradient(135deg, #FAF7F2 0%, #F4EFE6 100%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid #E2DDD5;
+  box-shadow: 
+    0 20px 50px -10px rgba(45, 35, 20, 0.07),
+    0 4px 15px -2px rgba(45, 35, 20, 0.03);
+}
+
+.neumorphic-card {
+  background: linear-gradient(145deg, #FFFFFF 0%, #FDFBF7 100%);
+  border: 1px solid #E2DDD5;
+  box-shadow: 
+    0 10px 30px -8px rgba(45, 35, 20, 0.05),
+    0 2px 6px -1px rgba(45, 35, 20, 0.02);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.neumorphic-card:hover {
+  border-color: rgba(16, 185, 129, 0.6);
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: 
+    0 20px 40px -12px rgba(16, 185, 129, 0.2),
+    0 4px 12px -2px rgba(45, 35, 20, 0.04);
+}
+
+.neumorphic-pill-btn {
+  background: linear-gradient(135deg, #059669 0%, #0d9488 100%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #FFFFFF;
+  box-shadow: 
+    0 10px 25px -5px rgba(5, 150, 105, 0.35);
+  transition: all 0.25s ease;
+}
+
+.neumorphic-pill-btn:hover {
+  box-shadow: 
+    0 15px 35px -5px rgba(5, 150, 105, 0.5);
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* Glowing text and buttons */
+.glow-text {
+  text-shadow: 0 0 25px rgba(16, 185, 129, 0.3);
+}
+
+/* Shimmer Light Effect */
+.shimmer-badge {
+  background: linear-gradient(90deg, rgba(16, 185, 129, 0.06) 0%, rgba(16, 185, 129, 0.2) 50%, rgba(16, 185, 129, 0.06) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Custom Animations */
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.03); }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s infinite ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.35s ease-out forwards;
+}
+
+/* Smooth Focus Ring */
+button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2px solid #10b981;
+  outline-offset: 2px;
+}
