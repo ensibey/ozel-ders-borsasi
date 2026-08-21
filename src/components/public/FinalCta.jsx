@@ -32,31 +32,37 @@ export default function FinalCta({ onOpenRequestWizard, onOpenCreateProfile }) {
 
           {/* Heading */}
           <h2 className="text-3xl sm:text-5xl font-black tracking-tight leading-[1.15]">
-            Hedeflediğin Netlere ve Başarıya Ulaşmaya Hazır Mısın?
+            Sınav Kaynaklarını & İndirim Kuponlarını Hemen Yakala
           </h2>
 
           {/* Subtext */}
           <p className="text-xs sm:text-base text-emerald-100/80 leading-relaxed max-w-xl mx-auto font-medium">
-            Hemen 1 dakikada ücretsiz özel ders talebini oluştur, kriterlerine tam uyan akredite eğitmenlerden ilk tekliflerini dakikalar içinde al.
+            Akredite yayınevlerinin orijinal soru bankalarını sepetine ekle, anlaşmalı mağazalarda geçerli fırsat kuponlarıyla anında tasarruf et.
           </p>
 
           {/* Dual CTA Action Buttons */}
           <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3.5">
             <button
-              onClick={onOpenRequestWizard}
+              onClick={() => {
+                const el = document.getElementById('showcase');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
               className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-sm shadow-2xl shadow-emerald-500/30 transition-all flex items-center justify-center gap-2 group hover:scale-[1.02]"
             >
-              <PlusCircle className="w-4 h-4" />
-              <span>Ücretsiz Ders Talebi Oluştur</span>
+              <Zap className="w-4 h-4" />
+              <span>📚 Kitap & Denemeleri Keşfet</span>
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </button>
 
             <button
-              onClick={onOpenCreateProfile}
+              onClick={() => {
+                const el = document.getElementById('coupons');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
               className="w-full sm:w-auto px-7 py-4 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-extrabold text-sm transition-all flex items-center justify-center gap-2 backdrop-blur-md"
             >
-              <UserPlus className="w-4 h-4 text-emerald-300" />
-              <span>Eğitmen Olarak Katıl</span>
+              <Sparkles className="w-4 h-4 text-emerald-300" />
+              <span>🏷️ Fırsat Kuponlarını Gör ↗</span>
             </button>
           </div>
 

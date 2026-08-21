@@ -43,13 +43,13 @@ export default function PublicFooter({
                   Özel Ders <span className="text-emerald-500">Borsası</span>
                 </span>
                 <span className="text-[10px] text-[#78716C] font-bold uppercase tracking-widest block">
-                  Güvenilir Eğitmen Pazarı
+                  Yayınevi & Kupon Pazarı
                 </span>
               </div>
             </div>
 
             <p className="text-xs leading-relaxed text-[#A8A29E]">
-              Türkiye’nin en seçkin akredite eğitmenlerini, başarı hedefleyen öğrenci ve velileriyle buluşturan yeni nesil özel ders ekosistemi.
+              Türkiye’nin en seçkin akredite yayınevlerini, soru bankalarını, deneme sınavlarını ve anında indirim kuponlarını bir araya getiren yeni nesil yayıncılık pazaryeri.
             </p>
 
             {/* Social Media Links */}
@@ -71,14 +71,14 @@ export default function PublicFooter({
 
           {/* Column 2: Ürün & Popüler Branşlar */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white">Popüler Branşlar</h4>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white">Yayınlar & Kuponlar</h4>
             <ul className="space-y-2 text-xs">
-              <li><a href="#showcase" className="hover:text-emerald-400 transition-colors">YKS Matematik & Geometri</a></li>
-              <li><a href="#showcase" className="hover:text-emerald-400 transition-colors">LGS Hazırlık & Yeni Nesil</a></li>
-              <li><a href="#showcase" className="hover:text-emerald-400 transition-colors">İngilizce & IELTS / TOEFL</a></li>
-              <li><a href="#showcase" className="hover:text-emerald-400 transition-colors">Fizik & Kimya Özel Ders</a></li>
-              <li><a href="#showcase" className="hover:text-emerald-400 transition-colors">Yazılım & Python / AI</a></li>
-              <li><a href="#showcase" className="hover:text-emerald-400 transition-colors">Piyano & Müzik Eğitimi</a></li>
+              <li><a href="#showcase" className="hover:text-emerald-400 transition-colors">YKS (TYT/AYT) Soru Bankaları</a></li>
+              <li><a href="#showcase" className="hover:text-emerald-400 transition-colors">LGS Branş Deneme Paketleri</a></li>
+              <li><a href="#showcase" className="hover:text-emerald-400 transition-colors">Dijital Soru Bankası PDF Setleri</a></li>
+              <li><a href="#showcase" className="hover:text-emerald-400 transition-colors">KPSS & ALES Hazırlık Kitapları</a></li>
+              <li><a href="#coupons" className="hover:text-emerald-400 transition-colors">KuponBurada İndirim Kodları</a></li>
+              <li><a href="#coupons" className="hover:text-emerald-400 transition-colors">Yayınevi Kampanya Kuponları</a></li>
             </ul>
           </div>
 

@@ -18,51 +18,51 @@ import {
 export default function Features({ onOpenRequestWizard }) {
   const featureList = [
     {
-      id: 'escrow',
-      title: 'Güvenli Havuz Hesabı (Escrow Koruması)',
-      description: 'Ders ödemeniz siz seansı tamamlayıp onaylayana kadar platform güvencesinde tutulur. Eğitmene ödeme sadece memnuniyetiniz sonrası aktarılır.',
-      icon: Lock,
-      badge: 'Mali Güvence',
+      id: 'publishers',
+      title: 'Akredite Yayınevleri & Orijinal Baskı',
+      description: 'Platformumuzda satışa sunulan tüm kitaplar, soru bankaları ve deneme setleri doğrudan akredite yayınevlerinden ve lisanslı dağıtıcılardan temin edilir.',
+      icon: BadgeCheck,
+      badge: 'Orijinal Ürün',
       color: 'bg-emerald-500/10 text-emerald-700 border-emerald-500/20 group-hover:bg-emerald-600 group-hover:text-white'
     },
     {
-      id: 'zero_fee',
-      title: 'Öğrenci & Veliye %0 Ek Komisyon',
-      description: 'Ders arayan öğrenci ve velilerden asla gizli ücret veya ek hizmet bedeli tahsil edilmez. Anlaştığınız saatlik ücret dışında hiçbir sürpriz masraf yoktur.',
-      icon: Percent,
-      badge: 'Şeffaf Fiyat',
+      id: 'coupons',
+      title: 'KuponBurada İndirim Kodları & Fırsatlar',
+      description: 'Yayınevleri ve popüler e-ticaret mağazalarında geçerli indirim kuponlarını tek tıkla kopyalayın, alışverişlerinizde anında %25-%50 tasarruf edin.',
+      icon: Sparkles,
+      badge: 'Anında İndirim',
       color: 'bg-blue-500/10 text-blue-700 border-blue-500/20 group-hover:bg-blue-600 group-hover:text-white'
     },
     {
-      id: 'accreditation',
-      title: 'Akademik Doğrulama & Mavi Tik Güvencesi',
-      description: 'Tüm eğitmenlerimizin üniversite diplomaları, e-Devlet mezuniyet belgeleri ve adli sicil kayıtları hukuk ve moderasyon ekibimizce tek tek onaylanır.',
-      icon: BadgeCheck,
-      badge: 'Akredite Kadro',
+      id: 'vendor_portal',
+      title: 'Yayınevleri & Firmalar İçin Satış Masası',
+      description: 'Yayınevleri kendi panelleri üzerinden ürün stoklarını yönetebilir, yeni deneme ve kitap setleri ekleyebilir ve satış istatistiklerini takip edebilir.',
+      icon: Percent,
+      badge: 'Yayıncı Portalı',
       color: 'bg-purple-500/10 text-purple-700 border-purple-500/20 group-hover:bg-purple-600 group-hover:text-white'
     },
     {
-      id: 'ai_matching',
-      title: 'Yapay Zeka Destekli Akıllı Ders Koçu',
-      description: 'Deneme netlerinize, eksik konularınıza ve hedeflediğiniz üniversiteye en uygun eğitim metodolojisine sahip uzman eğitmeni algoritmamız belirler.',
-      icon: Sparkles,
-      badge: 'AI Smart Match',
+      id: 'escrow',
+      title: 'Güvenli Alışveriş & 3D Secure Koruması',
+      description: 'Tüm ödemeler SSL ve 3D Secure korumalı altyapı üzerinden gerçekleşir. Siparişiniz size ulaşana kadar paranız platform güvencesinde tutulur.',
+      icon: Lock,
+      badge: 'Güvenli Ödeme',
       color: 'bg-amber-500/10 text-amber-700 border-amber-500/20 group-hover:bg-amber-600 group-hover:text-white'
     },
     {
-      id: 'virtual_class',
-      title: 'İnteraktif Sanal Sınıf & Beyaz Tahta',
-      description: 'Harici program indirmeye gerek kalmadan tarayıcıdan bağlanabileceğiniz çift yönlü soru çözüm tahtası, ekran paylaşımı ve kayıt imkanı sunar.',
+      id: 'instant_digital',
+      title: 'Hızlı Kargo & Anında Dijital PDF İndirme',
+      description: 'Fiziksel kitaplar anlaşmalı kargo ile aynı gün yola çıkar; dijital deneme ve soru bankası PDF’leri ise satın alma sonrası anında kütüphanenize tanımlanır.',
       icon: Video,
-      badge: 'Canlı Teknoloji',
+      badge: 'Hızlı Teslimat',
       color: 'bg-teal-500/10 text-teal-700 border-teal-500/20 group-hover:bg-teal-600 group-hover:text-white'
     },
     {
       id: 'guarantee',
-      title: '%100 Seans Telafisi & İade Garantisi',
-      description: 'İlk dersten teknik veya pedagojik olarak memnun kalmamanız durumunda destek ekibimiz koşulsuz yeni eğitmen ataması veya tam iade sağlar.',
+      title: '%100 İade ve Değişim Garantisi',
+      description: 'Hasarlı veya eksik teslim edilen ürünlerde koşulsuz değişim veya iade hakkınız bulunur. Destek ekibimiz 7/24 yanınızda.',
       icon: RotateCcw,
-      badge: 'Memnuniyet',
+      badge: 'Müşteri Memnuniyeti',
       color: 'bg-rose-500/10 text-rose-700 border-rose-500/20 group-hover:bg-rose-600 group-hover:text-white'
     }
   ];
@@ -72,15 +72,15 @@ export default function Features({ onOpenRequestWizard }) {
       {/* Section Header */}
       <div className="text-center space-y-3 max-w-3xl mx-auto mb-12">
         <span className="px-3.5 py-1 rounded-full bg-emerald-100 border border-emerald-200 text-emerald-800 text-xs font-bold tracking-wider uppercase inline-flex items-center gap-1.5 shadow-sm">
-          <ShieldCheck className="w-4 h-4" /> Neden Özel Ders Borsası?
+          <ShieldCheck className="w-4 h-4" /> Neden Özel Ders Borsası Pazarı?
         </span>
         
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#1C1917] tracking-tight">
-          Güvenli, Şeffaf ve Sonuç Odaklı Eğitim Ekosistemi
+          Güvenli, Şeffaf ve İndirimli Yayınevi Pazaryeri
         </h2>
         
         <p className="text-xs sm:text-sm text-[#57534E] leading-relaxed max-w-2xl mx-auto font-medium">
-          Geleneksel ilan sitelerinin güvensizliğini geride bırakın. Her ders seansının denetlendiği, velinin ve eğitmenin korunduğu kurumsal bir standart.
+          Doğrudan yayınevlerinden orijinal kitaplar, soru bankaları, sınav deneme setleri ve mağazalarda geçerli en güncel fırsat kuponları tek çatı altında.
         </p>
       </div>
 

@@ -48,7 +48,7 @@ export default function HomepageHeroView({
   onRoleChange,
   coupons = []
 }) {
-  const [activeTab, setActiveTab] = useState('teachers'); // 'teachers', 'requests', 'store', 'lounge', 'coupons'
+  const [activeTab, setActiveTab] = useState('store'); // 'store', 'coupons', 'teachers', 'requests', 'lounge'
 
   const activeCouponCount = coupons.filter(c => c.isActive !== false).length;
 
@@ -60,77 +60,41 @@ export default function HomepageHeroView({
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
           <div>
             <span className="text-xs font-extrabold uppercase tracking-widest text-emerald-700 flex items-center gap-1.5 mb-1">
-              <Sparkles className="w-4 h-4" /> Canlı Eğitim Pazaryeri
+              <Sparkles className="w-4 h-4" /> Yayınevi Pazaryeri & Fırsat Kuponları
             </span>
             <h2 className="text-2xl sm:text-3xl font-black text-[#1C1917] tracking-tight">
-              Öne Çıkan Eğitmenler & Canlı İlanlar
+              Yayınevi Kitap & Denemeleri ve Fırsat Kuponları
             </h2>
           </div>
           <p className="text-xs text-[#78716C] max-w-md">
-            Şehrindeki ve online'daki en başarılı eğitmen profillerini incele, öğrencilerin açtığı canlı taleplere göz at veya indirim kuponlarını yakala.
+            Akredite yayınevlerinin güncel soru bankalarını, deneme sınavı paketlerini ve anlaşmalı mağazalarda geçerli anında indirim kuponlarını inceleyin.
           </p>
         </div>
 
         {/* Tab Switcher */}
         <div className="p-1.5 rounded-2xl bg-white border border-[#E7E2D9] shadow-sm flex items-center space-x-2 overflow-x-auto custom-scrollbar">
           <button
-            onClick={() => setActiveTab('teachers')}
-            className={`px-4 py-2.5 rounded-xl text-xs font-extrabold whitespace-nowrap transition-all flex items-center gap-2 ${
-              activeTab === 'teachers'
-                ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20'
-                : 'text-[#57534E] hover:text-[#1C1917] hover:bg-[#F5F2EC]'
-            }`}
-          >
-            <UserCheck className="w-4 h-4" />
-            <span>Öne Çıkan Eğitmenler ({filteredTeachers.length})</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('requests')}
-            className={`px-4 py-2.5 rounded-xl text-xs font-extrabold whitespace-nowrap transition-all flex items-center gap-2 ${
-              activeTab === 'requests'
-                ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20'
-                : 'text-[#57534E] hover:text-[#1C1917] hover:bg-[#F5F2EC]'
-            }`}
-          >
-            <Sparkles className="w-4 h-4 text-amber-500" />
-            <span>Canlı Ders Talepleri ({serviceRequests.length})</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('coupons')}
-            className={`px-4 py-2.5 rounded-xl text-xs font-extrabold whitespace-nowrap transition-all flex items-center gap-2 ${
-              activeTab === 'coupons'
-                ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20'
-                : 'text-[#57534E] hover:text-[#1C1917] hover:bg-[#F5F2EC]'
-            }`}
-          >
-            <Tag className="w-4 h-4 text-emerald-600" />
-            <span>🏷️ Fırsat Kuponları ({activeCouponCount})</span>
-          </button>
-
-          <button
             onClick={() => setActiveTab('store')}
-            className={`px-4 py-2.5 rounded-xl text-xs font-extrabold whitespace-nowrap transition-all flex items-center gap-2 ${
+            className={`px-5 py-2.5 rounded-xl text-xs font-extrabold whitespace-nowrap transition-all flex items-center gap-2 ${
               activeTab === 'store'
                 ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20'
                 : 'text-[#57534E] hover:text-[#1C1917] hover:bg-[#F5F2EC]'
             }`}
           >
-            <BookOpen className="w-4 h-4 text-blue-500" />
-            <span>Kitap & Deneme Sınavları</span>
+            <BookOpen className="w-4 h-4" />
+            <span>📚 Yayınevi Kitap & Deneme Mağazası ({products.length})</span>
           </button>
 
           <button
-            onClick={() => setActiveTab('lounge')}
-            className={`px-4 py-2.5 rounded-xl text-xs font-extrabold whitespace-nowrap transition-all flex items-center gap-2 ${
-              activeTab === 'lounge'
+            onClick={() => setActiveTab('coupons')}
+            className={`px-5 py-2.5 rounded-xl text-xs font-extrabold whitespace-nowrap transition-all flex items-center gap-2 ${
+              activeTab === 'coupons'
                 ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20'
                 : 'text-[#57534E] hover:text-[#1C1917] hover:bg-[#F5F2EC]'
             }`}
           >
-            <Flame className="w-4 h-4 text-rose-500" />
-            <span>Canlı Soru Çözüm Salonu</span>
+            <Tag className="w-4 h-4 text-amber-400" />
+            <span>🏷️ İndirim & Fırsat Kuponları ({activeCouponCount})</span>
           </button>
         </div>
       </div>

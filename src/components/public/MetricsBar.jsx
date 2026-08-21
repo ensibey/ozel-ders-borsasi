@@ -17,39 +17,39 @@ import {
 export default function MetricsBar() {
   const metrics = [
     {
-      id: 'sessions',
-      value: '12,500+',
-      label: 'Tamamlanan Canlı Ders',
-      subText: '%99.4 Seans Başarı & Memnuniyet',
+      id: 'publishers',
+      value: '50+',
+      label: 'Akredite Yayınevi & Dağıtıcı',
+      subText: 'Türkiye Geneli Onaylı Yayıncı Ağı',
       icon: GraduationCap,
-      badge: 'Canlı Ders',
+      badge: 'Yayınevleri',
       color: 'bg-emerald-50 text-emerald-700 border-emerald-200'
     },
     {
-      id: 'tutors',
-      value: '850+',
-      label: 'Onaylı & Akredite Eğitmen',
-      subText: 'Boğaziçi, ODTÜ, İTÜ, Bilkent Kadrosu',
+      id: 'books',
+      value: '2,500+',
+      label: 'Soru Bankası & Deneme Seti',
+      subText: 'YKS, LGS, KPSS ve Okul Takviye',
       icon: ShieldCheck,
-      badge: 'Doğrulanmış',
+      badge: 'Orijinal Ürün',
       color: 'bg-teal-50 text-teal-700 border-teal-200'
     },
     {
-      id: 'rating',
-      value: '4.92 / 5',
-      label: 'Veli & Öğrenci Memnuniyeti',
-      subText: '4,200+ Doğrulanmış Gerçek Yorum',
+      id: 'orders',
+      value: '10,000+',
+      label: 'Öğrenci & Veli Siparişi',
+      subText: 'Hızlı Kargo & Dijital PDF İndirme',
       icon: Star,
-      badge: '5 Yıldız',
+      badge: 'Memnuniyet',
       color: 'bg-amber-50 text-amber-700 border-amber-200'
     },
     {
-      id: 'speed',
-      value: '15 Dakika',
-      label: 'Ortalama İlk Teklif Süresi',
-      subText: 'Hızlı ve Hedefe Yönelik Teklif Akışı',
-      icon: Clock,
-      badge: 'Hızlı Yanıt',
+      id: 'coupons',
+      value: '%99.8',
+      label: 'Kupon Çalışma Garantisi',
+      subText: 'Anlaşmalı Mağazalarda Anında İndirim',
+      icon: Sparkles,
+      badge: 'Aktif Kupon',
       color: 'bg-blue-50 text-blue-700 border-blue-200'
     }
   ];

@@ -14,7 +14,9 @@ import {
   ShieldCheck,
   User,
   SlidersHorizontal,
-  Compass
+  Compass,
+  ShoppingBag,
+  Building2
 } from 'lucide-react';
 import MegaHamburgerMenu from './MegaHamburgerMenu';
 
@@ -54,10 +56,10 @@ export default function PublicNavbar({
   }, []);
 
   const navLinks = [
+    { label: 'Kitap & Deneme Mağazası', href: '#showcase' },
+    { label: 'Fırsat Kuponları', href: '#coupons' },
     { label: 'Özellikler', href: '#features' },
-    { label: 'Nasıl Çalışır?', href: '#how-it-works' },
-    { label: 'Eğitmenleri Keşfet', href: '#showcase' },
-    { label: 'Kuponlar', href: '#coupons' }
+    { label: 'Nasıl Çalışır?', href: '#how-it-works' }
   ];
 
   const handleScrollTo = (e, href) => {
@@ -97,20 +99,10 @@ export default function PublicNavbar({
                   Özel Ders <span className="text-emerald-600">Borsası</span>
                 </span>
                 <span className="text-[8.5px] font-bold uppercase tracking-widest text-[#78716C] block mt-0.5 whitespace-nowrap">
-                  Akredite Eğitmen Pazarı
+                  Yayınevi & Kupon Pazarı
                 </span>
               </div>
             </a>
-
-            {/* City Location Picker Badge */}
-            <button
-              onClick={onOpenLocationModal}
-              className="hidden lg:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#EFECE6] hover:bg-[#E5E0D8] border border-[#DDD7CD] text-xs font-bold text-[#44403C] transition-all whitespace-nowrap group shrink-0"
-            >
-              <MapPin className="w-3.5 h-3.5 text-emerald-600 group-hover:animate-bounce shrink-0" />
-              <span className="max-w-[140px] truncate">{selectedCity}, {selectedDistrict}</span>
-              <span className="text-[9px] text-emerald-700 bg-emerald-100 px-1.5 py-0.5 rounded-full font-extrabold ml-1">Değiştir</span>
-            </button>
           </div>
 
           {/* 2. Desktop Navigation Links (Cleanly centered) */}
@@ -129,34 +121,39 @@ export default function PublicNavbar({
 
           {/* 3. Session-Aware Action CTA Buttons & Hamburger Trigger */}
           <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
-            {/* Primary Action Button */}
+            
+            {/* Cart Button */}
             <button
-              onClick={onOpenRequestWizard}
+              onClick={onOpenCart}
+              className="px-3.5 py-2.5 rounded-xl bg-white hover:bg-[#F5F2EC] border border-[#DDD7CD] text-[#292524] font-bold text-xs transition-colors flex items-center gap-1.5 shadow-sm whitespace-nowrap relative"
+            >
+              <ShoppingBag className="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>Sepet</span>
+              {cartCount > 0 && (
+                <span className="w-5 h-5 rounded-full bg-emerald-600 text-white text-[10px] font-black flex items-center justify-center">
+                  {cartCount}
+                </span>
+              )}
+            </button>
+
+            {/* Vendor Portal Direct Entry */}
+            <button
+              onClick={() => onOpenAuthModal && onOpenAuthModal('vendor')}
               className="hidden sm:flex px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-md shadow-emerald-600/20 transition-all items-center gap-1.5 whitespace-nowrap group"
             >
-              <PlusCircle className="w-4 h-4 transition-transform group-hover:rotate-90 shrink-0" />
-              <span>Ders Talebi Oluştur</span>
+              <Building2 className="w-4 h-4 shrink-0" />
+              <span>🏬 Yayınevi Portalı</span>
             </button>
 
             {/* If NOT logged in */}
             {!isLoggedIn ? (
-              <>
-                <button
-                  onClick={onOpenCreateProfile}
-                  className="hidden md:flex px-3.5 py-2.5 rounded-xl bg-white hover:bg-[#F5F2EC] border border-[#DDD7CD] text-[#292524] font-bold text-xs transition-colors items-center gap-1.5 shadow-sm whitespace-nowrap"
-                >
-                  <UserCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>Eğitmen Ol</span>
-                </button>
-
-                <button
-                  onClick={() => onOpenAuthModal && onOpenAuthModal('student')}
-                  className="px-3.5 py-2.5 rounded-xl text-[#44403C] hover:text-[#1C1917] hover:bg-[#EFECE6] border border-[#DDD7CD] sm:border-transparent font-bold text-xs transition-colors flex items-center gap-1.5 whitespace-nowrap"
-                >
-                  <LogIn className="w-4 h-4 text-[#78716C] shrink-0" />
-                  <span>Giriş Yap</span>
-                </button>
-              </>
+              <button
+                onClick={() => onOpenAuthModal && onOpenAuthModal('admin')}
+                className="px-3 py-2.5 rounded-xl text-[#44403C] hover:text-[#1C1917] hover:bg-[#EFECE6] border border-[#DDD7CD] font-bold text-xs transition-colors flex items-center gap-1.5 whitespace-nowrap"
+              >
+                <LogIn className="w-4 h-4 text-[#78716C] shrink-0" />
+                <span>Giriş Yap</span>
+              </button>
             ) : (
               <button
                 onClick={() => {

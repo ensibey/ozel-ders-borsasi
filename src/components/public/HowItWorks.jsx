@@ -17,31 +17,31 @@ import {
  * interactive role tabs (Student vs Teacher), and actionable conversion buttons.
  */
 export default function HowItWorks({ onOpenRequestWizard, onOpenCreateProfile }) {
-  const [activeTab, setActiveTab] = useState('student'); // 'student' or 'teacher'
+  const [activeTab, setActiveTab] = useState('student'); // 'student' (Buyer) or 'teacher' (Publisher)
 
   const studentSteps = [
     {
       stepNumber: '01',
-      title: 'İhtiyacını Belirt veya Eğitmen Seç',
-      description: 'Hangi branşta (Matematik, Fizik, Dil vb.), hangi sınav için (YKS/LGS) ve hangi bütçeyle ders aradığını 1 dakikada seç.',
+      title: 'Kitap & Deneme Seç veya Kupon Bul',
+      description: 'YKS, LGS, KPSS veya branş deneme paketlerini incele, mağazalarda geçerli anında indirim kuponlarını yakala.',
       icon: Send,
-      highlight: 'Ücretsiz & 1 Dk',
+      highlight: 'Kolay Seçim',
       color: 'from-emerald-500/20 to-teal-500/20 text-emerald-700 border-emerald-500/30'
     },
     {
       stepNumber: '02',
-      title: 'Teklifleri Karşılaştır & Mesajlaş',
-      description: 'Kriterlerine tam uyan onaylı akademisyen ve öğretmenlerin tekliflerini, saatlik ücretlerini ve veli yorumlarını incele.',
+      title: 'Kupon Kodunu Al & Sepete Ekle',
+      description: 'KuponBurada yönlendirmesiyle mağazaya git veya doğrudan siteden sepete ekleyerek indirim kodunu anında uygula.',
       icon: MessageSquare,
-      highlight: '15 Dk İlk Teklif',
+      highlight: 'Anında İndirim',
       color: 'from-blue-500/20 to-cyan-500/20 text-blue-700 border-blue-500/30'
     },
     {
       stepNumber: '03',
-      title: 'Güvenle Derse Başla & Başarıya Ulaş',
-      description: 'İster interaktif sanal sınıfta online, ister yüz yüze derse başla. Ödemen havuz hesabında seans bitene kadar güvendedir.',
+      title: 'Güvenli Ödeme & Hızlı Teslimat',
+      description: '3D Secure ile güvenle satın al. Dijital ürünler anında hesabında, fiziksel kitaplar aynı gün kargoda!',
       icon: GraduationCap,
-      highlight: 'Havuz Koruması',
+      highlight: 'Hızlı Kargo',
       color: 'from-purple-500/20 to-pink-500/20 text-purple-700 border-purple-500/30'
     }
   ];
@@ -49,26 +49,26 @@ export default function HowItWorks({ onOpenRequestWizard, onOpenCreateProfile })
   const teacherSteps = [
     {
       stepNumber: '01',
-      title: 'Profilini Oluştur & Belgelerini Yükle',
-      description: 'Mezuniyet diplomanı, branşını ve saatlik ücretini belirle. Moderasyon onayından sonra "Mavi Tik" akreditasyonunu al.',
+      title: 'Yayınevi Başvurusu Yap',
+      description: 'Yayınevi veya dağıtıcı şirket bilgilerinizi girerek saniyeler içinde kurumsal yayıncı paneline kaydolun.',
       icon: FileCheck,
-      highlight: 'Mavi Tik Rozeti',
+      highlight: 'Hızlı Başvuru',
       color: 'from-emerald-500/20 to-teal-500/20 text-emerald-700 border-emerald-500/30'
     },
     {
       stepNumber: '02',
-      title: 'Canlı Öğrenci Taleplerine Teklif Ver',
-      description: 'Şehrindeki veya Türkiye genelindeki binlerce öğrencinin açtığı özel ders taleplerine tek tıkla doğrudan teklif gönder.',
+      title: 'Kitap & Deneme Sınavlarını Listele',
+      description: 'Yeni soru bankalarını, deneme sınav setlerini ve dijital PDF içeriklerini stok ve fiyatlarıyla pazaryerine ekleyin.',
       icon: UserCheck,
-      highlight: 'Geniş Öğrenci Ağı',
+      highlight: 'Geniş Kitle',
       color: 'from-blue-500/20 to-cyan-500/20 text-blue-700 border-blue-500/30'
     },
     {
       stepNumber: '03',
-      title: 'Dersini Ver, Hakedişini Güvenle Al',
-      description: 'Tamamladığın her ders seansının ücreti seans onayının ardından doğrudan banka hesabına ertesi iş günü aktarılır.',
+      title: 'Satış Yap, Kazancını Güvenle Al',
+      description: 'Gelen siparişleri panelinizden yönetin, teslimat sonrası hakedişlerinizi ertesi iş günü banka hesabınıza alın.',
       icon: CreditCard,
-      highlight: 'Garantili Ödeme',
+      highlight: 'Garantili Tahsilat',
       color: 'from-purple-500/20 to-pink-500/20 text-purple-700 border-purple-500/30'
     }
   ];
@@ -82,15 +82,15 @@ export default function HowItWorks({ onOpenRequestWizard, onOpenCreateProfile })
         {/* Header & Role Switcher */}
         <div className="text-center space-y-3 max-w-2xl mx-auto mb-10">
           <span className="px-3.5 py-1 rounded-full bg-emerald-100 border border-emerald-200 text-emerald-800 text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 shadow-sm">
-            <Sparkles className="w-4 h-4" /> Kolay Süreç
+            <Sparkles className="w-4 h-4" /> Kolay ve Şeffaf Süreç
           </span>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#1C1917] tracking-tight">
-            3 Kolay Adımda Hedefine Ulaş
+            3 Kolay Adımda Başla
           </h2>
 
           <p className="text-xs sm:text-sm text-[#57534E] leading-relaxed font-medium">
-            Özel Ders Borsası, hem ders arayanlar hem de bilgi aktaran eğitmenler için en şeffaf ve güvenli akışı sunar.
+            Özel Ders Borsası Pazaryeri, kitap arayan öğrenciler ve ürünlerini listeleyen yayınevleri için en hızlı deneyimi sunar.
           </p>
 
           {/* Interactive Role Switcher Pills */}
@@ -103,7 +103,7 @@ export default function HowItWorks({ onOpenRequestWizard, onOpenCreateProfile })
                   : 'text-[#57534E] hover:text-[#1C1917]'
               }`}
             >
-              Öğrenci & Veli İçin (Ders Al)
+              📚 Öğrenci & Veli İçin (Alışveriş & Kupon)
             </button>
 
             <button
@@ -114,7 +114,7 @@ export default function HowItWorks({ onOpenRequestWizard, onOpenCreateProfile })
                   : 'text-[#57534E] hover:text-[#1C1917]'
               }`}
             >
-              Eğitmen & Öğretmen İçin (Ders Ver)
+              🏬 Yayınevleri İçin (Satış Masası)
             </button>
           </div>
         </div>
@@ -181,29 +181,34 @@ export default function HowItWorks({ onOpenRequestWizard, onOpenCreateProfile })
           {activeTab === 'student' ? (
             <div className="inline-flex flex-col sm:flex-row items-center gap-3">
               <button
-                onClick={onOpenRequestWizard}
+                onClick={() => {
+                  const el = document.getElementById('showcase');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
                 className="px-7 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs sm:text-sm shadow-xl shadow-emerald-700/25 transition-all flex items-center gap-2"
               >
-                <span>Hemen Ücretsiz Ders Talebi Oluştur</span>
+                <span>📚 Kitap & Denemeleri İncele</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
 
               <span className="text-xs text-[#78716C] font-semibold">
-                Ortalama 15 dakikada ilk teklifiniz gelir.
+                Tüm ürünlerde yayınevi orijinallik garantisi.
               </span>
             </div>
           ) : (
             <div className="inline-flex flex-col sm:flex-row items-center gap-3">
               <button
-                onClick={onOpenCreateProfile}
+                onClick={() => {
+                  if (onOpenCreateProfile) onOpenCreateProfile();
+                }}
                 className="px-7 py-3.5 rounded-2xl bg-[#1C1917] hover:bg-black text-white font-extrabold text-xs sm:text-sm shadow-xl transition-all flex items-center gap-2"
               >
-                <span>Eğitmen Olarak Başvur & Mavi Tik Al</span>
+                <span>🏬 Yayınevi Olarak Başvur & Satışa Başla</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
 
               <span className="text-xs text-[#78716C] font-semibold">
-                Öğretmen profili oluşturmak tamamen ücretsizdir.
+                Yayınevi mağazası açmak ve listeleme yapmak ücretsizdir.
               </span>
             </div>
           )}
