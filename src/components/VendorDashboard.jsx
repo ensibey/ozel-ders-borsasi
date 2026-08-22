@@ -36,6 +36,8 @@ export default function VendorDashboard({ products = [], onAddProduct, onDeleteP
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&q=80&w=500');
+  const [hasLookInside, setHasLookInside] = useState(true);
+  const [previewTopic, setPreviewTopic] = useState('Örnek Bölüm 1: Çıkmış Soru Analizi');
 
   // Timeframe for Analytics Chart
   const [timeframe, setTimeframe] = useState('weekly'); // 'weekly' or 'monthly'
@@ -105,6 +107,49 @@ export default function VendorDashboard({ products = [], onAddProduct, onDeleteP
     e.preventDefault();
     if (!name || !price) return;
 
+    const samplePreview = hasLookInside ? {
+      hasPreview: true,
+      totalPages: 3,
+      topic: previewTopic || 'Örnek Bölüm 1: Soru Çözümleri',
+      difficulty: 'ÖSYM Düzeyi (%100 Yeni Nesil)',
+      videoTeacher: vendor || 'Yayınevi Eğitmeni',
+      pages: [
+        {
+          pageNumber: 1,
+          type: 'cover_index',
+          title: 'İçindekiler & Soru Dağılımı',
+          subtitle: 'ÖSYM Çıkmış Soru Kazanım Tablosu',
+          content: [
+            '1. Bölüm: Temel Kavramlar & Hızlı Taktikler',
+            '2. Bölüm: Yeni Nesil Beceri Temelli Sorular',
+            '3. Bölüm: Deneme Sınavı & Video Çözümler'
+          ]
+        },
+        {
+          pageNumber: 2,
+          type: 'question_sample',
+          title: 'Örnek Soru 1: Yeni Nesil Modelleme Problemi',
+          subtitle: 'ÖSYM Benzeri Çözümlü Soru',
+          questionText: `${name} kaynağından seçilen bu örnek soru, sınav formatındaki analiz ve modelleme tekniklerini içerir.`,
+          options: ['A) 12', 'B) 18', 'C) 24', 'D) 30', 'E) 36'],
+          correctAnswer: 'C',
+          explanation: 'Kazanım formülü ve grafik yorumu uygulandığında doğru cevaba doğrudan ulaşılır.',
+          hasVideoSolution: true
+        },
+        {
+          pageNumber: 3,
+          type: 'summary_page',
+          title: 'Yayınevi Orijinal Baskı & Çözüm Desteği',
+          subtitle: 'Set Ayrıcalıkları',
+          content: [
+            '✓ Akıllı Tahta Uyumlu',
+            '✓ Video Çözüm Desteği',
+            '✓ Hızlı Kargo'
+          ]
+        }
+      ]
+    } : undefined;
+
     if (onAddProduct) {
       onAddProduct({
         id: 'p_' + Date.now(),
@@ -118,7 +163,8 @@ export default function VendorDashboard({ products = [], onAddProduct, onDeleteP
         image: image || 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&q=80&w=500',
         description: description || 'Akredite Yayınevi Orijinal Baskı Ürünü.',
         inStock: true,
-        tag: 'Yeni Ürün'
+        tag: 'Yeni Ürün',
+        samplePreview
       });
     }
 
@@ -563,12 +609,40 @@ export default function VendorDashboard({ products = [], onAddProduct, onDeleteP
             <div>
               <label className="block text-xs font-bold text-slate-300 mb-1">Ürün Açıklaması</label>
               <textarea
-                rows={3}
+                rows={2}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="ÖSYM yeni nesil soru tarzı, video çözümlü fasikül..."
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
               />
+            </div>
+
+            {/* Look Inside Preview Checkbox */}
+            <div className="p-3 rounded-2xl bg-indigo-950/40 border border-indigo-500/30 space-y-2">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={hasLookInside}
+                  onChange={(e) => setHasLookInside(e.target.checked)}
+                  className="rounded bg-slate-900 border-slate-700 text-indigo-600 focus:ring-0"
+                />
+                <span className="text-xs font-black text-indigo-300 flex items-center gap-1">
+                  <BookOpen className="w-3.5 h-3.5" /> 📖 "Kitabın İçine Bak" Önizlemesi Ekle
+                </span>
+              </label>
+
+              {hasLookInside && (
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-400 mb-0.5">Örnek Bölüm & Konu Başlığı:</label>
+                  <input
+                    type="text"
+                    value={previewTopic}
+                    onChange={(e) => setPreviewTopic(e.target.value)}
+                    placeholder="Örn: Bölüm 1: Fonksiyonlar ve Soru Çözümleri"
+                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-1.5 text-xs text-emerald-300 focus:outline-none focus:border-emerald-500"
+                  />
+                </div>
+              )}
             </div>
 
             <button

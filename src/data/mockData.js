@@ -200,7 +200,74 @@ export const INITIAL_PRODUCTS = [
     image: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&q=80&w=500',
     description: 'Video çözümlü, tamamı ÖSYM formatına uygun, yeni müfredatla %100 uyumlu soru fasikülü.',
     inStock: true,
-    tag: 'Çok Satan'
+    tag: 'Çok Satan',
+    samplePreview: {
+      hasPreview: true,
+      totalPages: 5,
+      topic: 'Bölüm 1: Fonksiyonlar ve Grafik Analizi',
+      difficulty: 'ÖSYM Düzeyi (%100 Yeni Nesil)',
+      videoTeacher: 'Dr. Selin Demir',
+      pages: [
+        {
+          pageNumber: 1,
+          type: 'cover_index',
+          title: 'İçindekiler & 2026 Soru Dağılım Matrisi',
+          subtitle: 'Konulara Göre Çıkmış Soru İstatistiği',
+          content: [
+            '1. Fonksiyon Kavramı ve Tanım Kümesi (Sayfa 6-18)',
+            '2. Birebir ve Örten Fonksiyon İspatları (Sayfa 19-32)',
+            '3. Fonksiyonlarda Bileşke ve Ters Fonksiyon (Sayfa 33-48)',
+            '4. Parçalı Fonksiyonlar & Mutlak Değer Grafikleri (Sayfa 49-65)',
+            '5. ÖSYM Çıkmış Sınav Soruları Analizi (Sayfa 66-80)'
+          ]
+        },
+        {
+          pageNumber: 2,
+          type: 'question_sample',
+          title: 'Örnek Soru 1: Yeni Nesil Modelleme Problemi',
+          subtitle: 'AYT Sayısal Seviye 4/5 (Derece Sorusu)',
+          questionText: 'Gerçel sayılar kümesinde tanımlı f ve g fonksiyonları için (f o g)(x) = 3g(x) + 4 ve g(2) = 5 olarak veriliyor. Buna göre f(5) değeri kaçtır?',
+          options: ['A) 15', 'B) 19', 'C) 22', 'D) 25', 'E) 31'],
+          correctAnswer: 'B',
+          explanation: 'Bileşke fonksiyon kuralı gereğince f(g(x)) = 3g(x) + 4 formunda g(x) yerine 5 yazıldığında f(5) = 3(5) + 4 = 19 elde edilir.',
+          hasVideoSolution: true
+        },
+        {
+          pageNumber: 3,
+          type: 'question_sample',
+          title: 'Örnek Soru 2: Grafik Okuma & Kök Bağıntısı',
+          subtitle: 'ÖSYM 2025 Benzeri Soru Kurgusu',
+          questionText: '[-4, 6] aralığında tanımlı f(x) fonksiyonunun grafiğinde f(x) = 2 eşitliğini sağlayan köklerin toplamı incelenmektedir.',
+          options: ['A) 2', 'B) 3', 'C) 4', 'D) 5', 'E) 6'],
+          correctAnswer: 'C',
+          explanation: 'Grafikten f(a)=2 olan noktalar bulunur. Toplam 4 farklı reel kök mevcuttur.',
+          hasVideoSolution: true
+        },
+        {
+          pageNumber: 4,
+          type: 'concept_card',
+          title: '🎯 Kritik ÖSYM Püf Noktası: Grafik Simetrileri',
+          subtitle: 'Sınavda Zaman Kazandıran Pratik Notlar',
+          content: [
+            '• f(-x) = f(x) ise fonksiyon ÇİFT fonksiyondur ve grafiği y-eksenine göre simetriktir.',
+            '• f(-x) = -f(x) ise fonksiyon TEK fonksiyondur ve grafiği orijine göre simetriktir.',
+            '• ÖSYM son 5 yılda tek/çift fonksiyon özelliklerini integral ve türev ile birleştirerek sormaktadır.'
+          ]
+        },
+        {
+          pageNumber: 5,
+          type: 'summary_page',
+          title: 'Tamamı Renkli Baskı & Akıllı Karekod Sistemi',
+          subtitle: 'Bu Kitapta Neler Var?',
+          content: [
+            '✓ 1.250 Özgün Soru & Tamamı Ayrıntılı Video Çözümlü',
+            '✓ Akıllı Tahta & Tablet Uygulama Desteği',
+            '✓ MEB 2026 Müfredatı ve ÖSYM Kazanımları ile %100 Uyumlu',
+            '✓ Anında Kütüphaneye Ekleme & Hızlı Kargo'
+          ]
+        }
+      ]
+    }
   },
   {
     id: 'p2',
@@ -214,7 +281,49 @@ export const INITIAL_PRODUCTS = [
     image: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&q=80&w=500',
     description: 'Sayısal ve Sözel 2 oturum şeklinde hazırlanmış, optik formlu, anında Türkiye geneli sıralama veren deneme seti.',
     inStock: true,
-    tag: 'Fırsat Ürünü'
+    tag: 'Fırsat Ürünü',
+    samplePreview: {
+      hasPreview: true,
+      totalPages: 3,
+      topic: 'Deneme 1: Sayısal Oturum (Matematik & Fen)',
+      difficulty: 'LGS Yeni Nesil Beceri Temelli',
+      videoTeacher: 'Ahmet Kaya',
+      pages: [
+        {
+          pageNumber: 1,
+          type: 'cover_index',
+          title: 'LGS 1. Deneme Sayısal Kitapçığı',
+          subtitle: 'Örnek Soru Yapısı ve Süre Bilgisi',
+          content: [
+            '• Matematik: 20 Yeni Nesil Soru (Grafik ve Tablo Yorumlama)',
+            '• Fen Bilimleri: 20 Deney ve Hipotez Sorusu',
+            '• Sınav Süresi: 80 Dakika (Optik Formlu)'
+          ]
+        },
+        {
+          pageNumber: 2,
+          type: 'question_sample',
+          title: 'Örnek Matematik Sorusu: Çarpanlar ve Katlar',
+          subtitle: 'LGS Mantık Muhakeme Sorusu',
+          questionText: 'Bir kenar uzunluğu 120 cm ve 180 cm olan dikdörtgen şeklindeki bir bahçenin etrafına eşit aralıklarla fidan dikilecektir. En az kaç fidan gerekir?',
+          options: ['A) 8', 'B) 10', 'C) 12', 'D) 15'],
+          correctAnswer: 'B',
+          explanation: 'EBOB(120, 180) = 60 cm. Çevre = 2 * (120 + 180) = 600 cm. Fidan sayısı = 600 / 60 = 10 adet.',
+          hasVideoSolution: true
+        },
+        {
+          pageNumber: 3,
+          type: 'summary_page',
+          title: 'Optik Okuma & Türkiye Geneli Karne',
+          subtitle: 'Deneme Seti Özellikleri',
+          content: [
+            '✓ Mobil Uygulama ile Anında Optik Form Okuma',
+            '✓ Eksik Kazanım Analiz Raporu',
+            '✓ Tüm Soruların Adım Adım Video Çözümleri'
+          ]
+        }
+      ]
+    }
   },
   {
     id: 'p3',
@@ -229,6 +338,7 @@ export const INITIAL_PRODUCTS = [
     description: 'Haftalık programlama sayfaları, konu takip matrisi, motivasyon makaleleri ve qr kodlu soru çözümleri.',
     inStock: true,
     tag: 'Özel Seri'
+    // samplePreview is omitted intentionally to show non-preview products
   },
   {
     id: 'p4',
@@ -242,7 +352,49 @@ export const INITIAL_PRODUCTS = [
     image: 'https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&q=80&w=500',
     description: 'Fen bilimlerinde tam net hedefleyenler için akıllı tahta uyumlu, deneysel ve mantık muhakeme soruları.',
     inStock: true,
-    tag: 'Kargo Bedava'
+    tag: 'Kargo Bedava',
+    samplePreview: {
+      hasPreview: true,
+      totalPages: 3,
+      topic: 'Fizik: Hareket ve Kuvvet',
+      difficulty: 'TYT Fen ÖSYM Formatı',
+      videoTeacher: 'Zeynep Kaya',
+      pages: [
+        {
+          pageNumber: 1,
+          type: 'concept_card',
+          title: 'Kuvvet ve Newton Hareket Yasaları',
+          subtitle: 'Fizik Temel Kavram Kartı',
+          content: [
+            '1. Eylemsizlik Prensibi (Net Kuvvet = 0 ise cisim durumunu korur)',
+            '2. Temel Yasa (F_net = m * a)',
+            '3. Etki-Tepki Prensibi (Kuvvetler daima zıt yönlü ve eşit büyüklüktedir)'
+          ]
+        },
+        {
+          pageNumber: 2,
+          type: 'question_sample',
+          title: 'Örnek Soru: Sürtünmeli Düzlemde İvme',
+          subtitle: 'TYT Seviye 3/5',
+          questionText: 'Kütlesi 4 kg olan bir cisme yatay 20 N kuvvet uygulandığında sürtünme katsayısı k=0.2 ise cismin ivmesi kaç m/s² olur? (g=10 m/s²)',
+          options: ['A) 2', 'B) 3', 'C) 4', 'D) 5'],
+          correctAnswer: 'B',
+          explanation: 'F_s = k * N = 0.2 * 40 = 8 N. F_net = 20 - 8 = 12 N. a = F_net / m = 12 / 4 = 3 m/s².',
+          hasVideoSolution: true
+        },
+        {
+          pageNumber: 3,
+          type: 'summary_page',
+          title: '3 Cilt Tam Set Ayrıcalığı',
+          subtitle: 'Fizik + Kimya + Biyoloji',
+          content: [
+            '✓ 3.000+ Soru & Tamamı Video Çözümlü',
+            '✓ ÖSYM Son 15 Yıl Analizi',
+            '✓ Ücretsiz Hızlı Kargo'
+          ]
+        }
+      ]
+    }
   }
 ];
 
