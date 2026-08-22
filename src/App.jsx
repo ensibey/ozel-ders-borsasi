@@ -430,6 +430,11 @@ export default function App() {
     showToast('Yeni materyal satışa eklendi.', 'success');
   };
 
+  const handleDeleteProduct = (productId) => {
+    setProducts(prev => prev.filter(p => p.id !== productId));
+    showToast('Ürün mağazadan kaldırıldı.', 'info');
+  };
+
   const handleAddAnnouncement = (newAnn) => {
     setAnnouncements(prev => [newAnn, ...prev]);
     postAnnouncementApi(newAnn);
@@ -757,6 +762,7 @@ export default function App() {
           <VendorDashboard
             products={products}
             onAddProduct={handleAddProduct}
+            onDeleteProduct={handleDeleteProduct}
           />
         )}
 
