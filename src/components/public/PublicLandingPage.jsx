@@ -102,11 +102,6 @@ export default function PublicLandingPage({
         {/* SOCIAL PROOF 4-ITEM METRICS BAR */}
         <MetricsBar />
 
-        {/* TOP PRIORITY: DEDICATED COUPON DEALS & DISCOUNTS MARKETPLACE */}
-        <div id="coupons" className="scroll-mt-24">
-          <CouponDealsWidget coupons={coupons} isSidebar={false} />
-        </div>
-
         {/* POPULAR CATEGORIES & BRANCHES GRID */}
         <CategoryGrid
           onSelectCategory={(catId) => {
@@ -116,31 +111,33 @@ export default function PublicLandingPage({
 
         {/* LIVE MARKETPLACE SHOWCASE (DIGITAL STORE & COUPONS) */}
         <div id="showcase" className="scroll-mt-24">
-          <HomepageHeroView
-            teachers={teachers}
-            filteredTeachers={filteredTeachers}
-            products={products}
-            serviceRequests={serviceRequests}
-            selectedCity={selectedCity}
-            selectedDistrict={selectedDistrict}
-            selectedSubject={selectedSubject}
-            setSelectedSubject={setSelectedSubject}
-            sortOrder={sortOrder}
-            setSortOrder={setSortOrder}
-            onlineOnlyFilter={onlineOnlyFilter}
-            setOnlineOnlyFilter={setOnlineOnlyFilter}
-            onOpenRequestWizard={onOpenRequestWizard}
-            onOpenCreateProfile={onOpenCreateProfile}
-            onOpenFilterModal={onOpenFilterModal}
-            onSelectTeacher={onSelectTeacher}
-            onBookLesson={onBookLesson}
-            onOpenReview={onOpenReview}
-            onAddToCart={onAddToCart}
-            onAddBidToRequest={onAddBidToRequest}
-            onOpenAuthModal={onOpenAuthModal}
-            onRoleChange={onRoleChange}
-            coupons={coupons}
-          />
+          <div id="coupons" className="scroll-mt-24">
+            <HomepageHeroView
+              teachers={teachers}
+              filteredTeachers={filteredTeachers}
+              products={products}
+              serviceRequests={serviceRequests}
+              selectedCity={selectedCity}
+              selectedDistrict={selectedDistrict}
+              selectedSubject={selectedSubject}
+              setSelectedSubject={setSelectedSubject}
+              sortOrder={sortOrder}
+              setSortOrder={setSortOrder}
+              onlineOnlyFilter={onlineOnlyFilter}
+              setOnlineOnlyFilter={setOnlineOnlyFilter}
+              onOpenRequestWizard={onOpenRequestWizard}
+              onOpenCreateProfile={onOpenCreateProfile}
+              onOpenFilterModal={onOpenFilterModal}
+              onSelectTeacher={onSelectTeacher}
+              onBookLesson={onBookLesson}
+              onOpenReview={onOpenReview}
+              onAddToCart={onAddToCart}
+              onAddBidToRequest={onAddBidToRequest}
+              onOpenAuthModal={onOpenAuthModal}
+              onRoleChange={onRoleChange}
+              coupons={coupons}
+            />
+          </div>
         </div>
 
         {/* 6-CARD MODERN BENTO FEATURES SECTION */}

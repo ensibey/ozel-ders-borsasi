@@ -48,7 +48,24 @@ export default function HomepageHeroView({
   onRoleChange,
   coupons = []
 }) {
-  const [activeTab, setActiveTab] = useState('store'); // 'store', 'coupons', 'teachers', 'requests', 'lounge'
+  const [activeTab, setActiveTab] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const h = window.location.hash.toLowerCase();
+      if (h === '#showcase' || h === '#store') return 'store';
+      if (h === '#coupons') return 'coupons';
+    }
+    return 'coupons';
+  });
+
+  React.useEffect(() => {
+    const handleHash = () => {
+      const h = window.location.hash.toLowerCase();
+      if (h === '#coupons') setActiveTab('coupons');
+      if (h === '#showcase' || h === '#store') setActiveTab('store');
+    };
+    window.addEventListener('hashchange', handleHash);
+    return () => window.removeEventListener('hashchange', handleHash);
+  }, []);
 
   const activeCouponCount = coupons.filter(c => c.isActive !== false).length;
 
