@@ -67,7 +67,7 @@ export default function HomepageHeroView({
             </h2>
           </div>
           <p className="text-xs text-[#78716C] max-w-md">
-            Akredite yayınevlerinin güncel soru bankalarını, deneme sınavı paketlerini ve anlaşmalı mağazalarda geçerli anında indirim kuponlarını inceleyin.
+            Önde gelen yayınevlerinin güncel soru bankalarını, deneme sınavı paketlerini ve anlaşmalı mağazalarda geçerli anında indirim kuponlarını inceleyin.
           </p>
         </div>
 

@@ -17,7 +17,7 @@ export default function FaqAccordion() {
     {
       id: 'faq_2',
       question: 'Eğitmenlerin üniversite diplomaları ve yetkinlikleri nasıl doğrulanıyor?',
-      answer: 'Platformumuza başvuran her öğretmen; e-Devlet mezuniyet belgesi, adli sicil kaydı ve kimlik doğrulaması aşamalarından geçer. Belgeleri onaylanan eğitmenler resmi "Mavi Tik (Akredite)" rozetine sahip olur.'
+      answer: 'Platformumuza başvuran her öğretmen; e-Devlet mezuniyet belgesi, adli sicil kaydı ve kimlik doğrulaması aşamalarından geçer. Belgeleri onaylanan eğitmenler resmi "Mavi Tik (Doğrulanmış)" rozetine sahip olur.'
     },
     {
       id: 'faq_3',

@@ -19,7 +19,7 @@ export default function MetricsBar() {
     {
       id: 'publishers',
       value: '50+',
-      label: 'Akredite Yayınevi & Dağıtıcı',
+      label: 'Anlaşmalı Yayınevi & Dağıtıcı',
       subText: 'Türkiye Geneli Onaylı Yayıncı Ağı',
       icon: GraduationCap,
       badge: 'Yayınevleri',

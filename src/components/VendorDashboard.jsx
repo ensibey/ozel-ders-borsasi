@@ -161,7 +161,7 @@ export default function VendorDashboard({ products = [], onAddProduct, onDeleteP
         rating: 5.0,
         salesCount: 1,
         image: image || 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&q=80&w=500',
-        description: description || 'Akredite Yayınevi Orijinal Baskı Ürünü.',
+        description: description || 'Orijinal Yayınevi Baskısı Ürün.',
         inStock: true,
         tag: 'Yeni Ürün',
         samplePreview
@@ -299,7 +299,7 @@ export default function VendorDashboard({ products = [], onAddProduct, onDeleteP
           <div>
             <div className="flex items-center gap-2">
               <span className="px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 text-[11px] font-extrabold border border-indigo-500/30">
-                🏢 Akredite Yayınevi Portalı
+                🏢 Yayınevi & Yayıncı Portalı
               </span>
               <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold border border-emerald-500/30 flex items-center gap-1">
                 <CheckCircle2 className="w-3 h-3" /> Doğrulanmış Satıcı

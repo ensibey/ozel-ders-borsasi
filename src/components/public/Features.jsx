@@ -19,8 +19,8 @@ export default function Features({ onOpenRequestWizard }) {
   const featureList = [
     {
       id: 'publishers',
-      title: 'Akredite Yayınevleri & Orijinal Baskı',
-      description: 'Platformumuzda satışa sunulan tüm kitaplar, soru bankaları ve deneme setleri doğrudan akredite yayınevlerinden ve lisanslı dağıtıcılardan temin edilir.',
+      title: 'Onaylı Yayınevleri & Orijinal Baskı',
+      description: 'Platformumuzda satışa sunulan tüm kitaplar, soru bankaları ve deneme setleri doğrudan resmi yayınevlerinden ve lisanslı dağıtıcılardan temin edilir.',
       icon: BadgeCheck,
       badge: 'Orijinal Ürün',
       color: 'bg-emerald-500/10 text-emerald-700 border-emerald-500/20 group-hover:bg-emerald-600 group-hover:text-white'

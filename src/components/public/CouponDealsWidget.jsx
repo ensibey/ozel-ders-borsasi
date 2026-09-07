@@ -68,7 +68,7 @@ export default function CouponDealsWidget({ coupons = [], isSidebar = false }) {
     { id: 'all', label: 'Tüm Kuponlar' },
     { id: 'lesson', label: 'Özel Ders' },
     { id: 'store', label: 'Kitap & Deneme' },
-    { id: 'tutor', label: 'Akredite Kadro' }
+    { id: 'tutor', label: 'Uzman Kadro' }
   ];
 
   return (

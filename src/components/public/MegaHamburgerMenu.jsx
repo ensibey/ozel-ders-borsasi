@@ -71,7 +71,7 @@ export default function MegaHamburgerMenu({
       items: [
         {
           label: 'Öne Çıkan Eğitmenler',
-          sub: 'Akredite öğretmen profilleri ve randevu takvimi',
+          sub: 'Doğrulanmış öğretmen profilleri ve randevu takvimi',
           icon: UserCheck,
           color: 'bg-emerald-500/10 text-emerald-700 border-emerald-500/20',
           action: () => {

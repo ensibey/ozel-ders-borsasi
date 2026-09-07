@@ -37,7 +37,7 @@ export default function FinalCta({ onOpenRequestWizard, onOpenCreateProfile }) {
 
           {/* Subtext */}
           <p className="text-xs sm:text-base text-emerald-100/80 leading-relaxed max-w-xl mx-auto font-medium">
-            Akredite yayınevlerinin orijinal soru bankalarını sepetine ekle, anlaşmalı mağazalarda geçerli fırsat kuponlarıyla anında tasarruf et.
+            Seçkin yayınevlerinin orijinal soru bankalarını sepetine ekle, anlaşmalı mağazalarda geçerli fırsat kuponlarıyla anında tasarruf et.
           </p>
 
           {/* Dual CTA Action Buttons */}

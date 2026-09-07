@@ -68,7 +68,7 @@ export default function Hero({
 
         {/* 3. Impactful H1 Headline */}
         <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-[#1C1917] tracking-tight leading-[1.15]">
-          Akredite Yayınevleri, Deneme Setleri & <br className="hidden sm:inline" />
+          Popüler Yayınevleri, Deneme Setleri & <br className="hidden sm:inline" />
           <span className="bg-gradient-to-r from-emerald-700 via-teal-700 to-emerald-900 bg-clip-text text-transparent">
             Özel İndirim Kuponları
           </span>

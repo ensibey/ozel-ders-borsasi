@@ -49,7 +49,7 @@ export default function PublicFooter({
             </div>
 
             <p className="text-xs leading-relaxed text-[#A8A29E]">
-              Türkiye’nin en seçkin akredite yayınevlerini, soru bankalarını, deneme sınavlarını ve anında indirim kuponlarını bir araya getiren yeni nesil yayıncılık pazaryeri.
+              Türkiye’nin en seçkin yayınevlerini, soru bankalarını, deneme sınavlarını ve anında indirim kuponlarını bir araya getiren yeni nesil yayıncılık pazaryeri.
             </p>
 
             {/* Social Media Links */}

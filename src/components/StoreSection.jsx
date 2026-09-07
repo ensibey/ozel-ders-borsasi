@@ -37,11 +37,11 @@ export default function StoreSection({ products, onAddToCart }) {
         <div>
           <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-semibold mb-2 border border-indigo-500/30">
             <ShoppingBag className="w-3.5 h-3.5" />
-            <span>Akredite Yayınevi Pazarı</span>
+            <span>Güvenilir Yayınevi Pazarı</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">Soru Bankaları & Deneme Sınavları</h2>
           <p className="text-xs sm:text-sm text-slate-300 mt-1">
-            Akredite yayınevlerinin orijinal baskı kitapları, video çözümlü fasikülleri ve anında indirilebilir deneme setleri.
+            Seçkin yayınevlerinin orijinal baskı kitapları, video çözümlü fasikülleri ve anında indirilebilir deneme setleri.
           </p>
         </div>
 
