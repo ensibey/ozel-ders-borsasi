@@ -1,11 +1,19 @@
 import express from 'express';
 import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json({ limit: '5mb' }));
+
+// Serve built frontend assets
+app.use(express.static(path.join(__dirname, 'dist')));
 
 // Full In-Memory Database (Seed Data)
 let teachers = [
@@ -470,9 +478,15 @@ app.get('/api/stats', (req, res) => {
   });
 });
 
-// 404 Route Not Found Middleware
-app.use((req, res) => {
-  res.status(404).json({ success: false, message: 'Aradığınız API rotası bulunamadı.' });
+// SPA Client Routing Fallback
+app.get('*', (req, res, next) => {
+  if (req.path.startsWith('/api')) {
+    return res.status(404).json({ success: false, message: 'Aradığınız API rotası bulunamadı.' });
+  }
+  const indexPath = path.join(__dirname, 'dist', 'index.html');
+  res.sendFile(indexPath, (err) => {
+    if (err) next();
+  });
 });
 
 // Global Express Error Handler Middleware

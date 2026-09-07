@@ -1,6 +1,8 @@
+# Render Blueprint Specification for Özel Ders Borsası
 services:
+  # Option 1: High-Speed Global Static Site (Recommended for Front-End & Demo)
   - type: web
-    name: ozel-ders-borsasi
+    name: ozel-ders-borsasi-web
     env: static
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist
@@ -8,3 +10,23 @@ services:
       - type: rewrite
         source: /*
         destination: /index.html
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+
+  # Option 2: Fullstack Node.js Web Service (When Express Backend API is needed)
+  - type: web
+    name: ozel-ders-borsasi-fullstack
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
