@@ -1,7 +1,14 @@
-const API_BASE = 'http://localhost:5000/api';
+// In production (e.g. ozeldersborsasi.com), do not attempt to contact localhost:5000!
+// Only query API if a remote VITE_API_URL is configured or running locally during development.
+const IS_LOCAL = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+const API_BASE = import.meta.env.VITE_API_URL || (IS_LOCAL ? 'http://localhost:5000/api' : null);
 const DEFAULT_TIMEOUT_MS = 8000;
 
 async function fetchWithTimeout(resource, options = {}) {
+  if (!API_BASE) {
+    throw new Error('API_OFFLINE');
+  }
+
   const { timeout = DEFAULT_TIMEOUT_MS } = options;
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), timeout);
@@ -16,13 +23,14 @@ async function fetchWithTimeout(resource, options = {}) {
   } catch (error) {
     clearTimeout(id);
     if (error.name === 'AbortError') {
-      throw new Error('İstek zaman aşımına uğradı (Timeout). Lütfen bağlantınızı kontrol edin.');
+      throw new Error('İstek zaman aşımına uğradı (Timeout).');
     }
     throw error;
   }
 }
 
 export async function fetchTeachersFromApi(params = {}) {
+  if (!API_BASE) return { success: false, data: null, error: null };
   try {
     const query = new URLSearchParams(params).toString();
     const res = await fetchWithTimeout(`${API_BASE}/teachers?${query}`);
@@ -30,12 +38,12 @@ export async function fetchTeachersFromApi(params = {}) {
     const json = await res.json();
     return { success: true, data: json.data, error: null };
   } catch (err) {
-    console.warn('Backend API offline, yerel veritabanına geçildi:', err.message);
     return { success: false, data: null, error: err.message };
   }
 }
 
 export async function updateTeacherApi(teacherData) {
+  if (!API_BASE) return { success: true, fallback: true, error: null };
   try {
     const res = await fetchWithTimeout(`${API_BASE}/teachers`, {
       method: 'POST',
@@ -46,24 +54,24 @@ export async function updateTeacherApi(teacherData) {
     const json = await res.json();
     return { success: true, data: json.data, error: null };
   } catch (err) {
-    console.warn('Backend API öğretmen fallback:', err.message);
     return { success: true, fallback: true, error: null };
   }
 }
 
 export async function fetchRequestsFromApi() {
+  if (!API_BASE) return { success: false, data: null, error: null };
   try {
     const res = await fetchWithTimeout(`${API_BASE}/requests`);
     if (!res.ok) throw new Error(`API Sunucu Hatası (${res.status})`);
     const json = await res.json();
     return { success: true, data: json.data, error: null };
   } catch (err) {
-    console.warn('Backend API offline, ders talepleri yerel bellekten okundu:', err.message);
     return { success: false, data: null, error: err.message };
   }
 }
 
 export async function createRequestApi(requestData) {
+  if (!API_BASE) return { success: true, fallback: true, error: null };
   try {
     const res = await fetchWithTimeout(`${API_BASE}/requests`, {
       method: 'POST',
@@ -74,12 +82,12 @@ export async function createRequestApi(requestData) {
     const json = await res.json();
     return { success: true, data: json.data, error: null };
   } catch (err) {
-    console.warn('Backend API talep fallback:', err.message);
     return { success: true, fallback: true, error: null };
   }
 }
 
 export async function postBidApi(requestId, bidData) {
+  if (!API_BASE) return { success: true, fallback: true, error: null };
   try {
     const res = await fetchWithTimeout(`${API_BASE}/requests/${requestId}/bids`, {
       method: 'POST',
@@ -90,24 +98,24 @@ export async function postBidApi(requestId, bidData) {
     const json = await res.json();
     return { success: true, data: json.data, error: null };
   } catch (err) {
-    console.warn('Backend API teklif fallback:', err.message);
     return { success: true, fallback: true, error: null };
   }
 }
 
 export async function fetchProductsFromApi() {
+  if (!API_BASE) return { success: false, data: null, error: null };
   try {
     const res = await fetchWithTimeout(`${API_BASE}/products`);
     if (!res.ok) throw new Error(`API Sunucu Hatası (${res.status})`);
     const json = await res.json();
     return { success: true, data: json.data, error: null };
   } catch (err) {
-    console.warn('Backend API offline, ürünler yerel bellekten okundu:', err.message);
     return { success: false, data: null, error: err.message };
   }
 }
 
 export async function postProductApi(productData) {
+  if (!API_BASE) return { success: true, fallback: true, error: null };
   try {
     const res = await fetchWithTimeout(`${API_BASE}/products`, {
       method: 'POST',
@@ -118,24 +126,24 @@ export async function postProductApi(productData) {
     const json = await res.json();
     return { success: true, data: json.data, error: null };
   } catch (err) {
-    console.warn('Backend API ürün fallback:', err.message);
     return { success: true, fallback: true, error: null };
   }
 }
 
 export async function fetchAnnouncementsFromApi() {
+  if (!API_BASE) return { success: false, data: null, error: null };
   try {
     const res = await fetchWithTimeout(`${API_BASE}/announcements`);
     if (!res.ok) throw new Error(`API Sunucu Hatası (${res.status})`);
     const json = await res.json();
     return { success: true, data: json.data, error: null };
   } catch (err) {
-    console.warn('Backend API offline, duyurular yerel bellekten okundu:', err.message);
     return { success: false, data: null, error: err.message };
   }
 }
 
 export async function postAnnouncementApi(annData) {
+  if (!API_BASE) return { success: true, fallback: true, error: null };
   try {
     const res = await fetchWithTimeout(`${API_BASE}/announcements`, {
       method: 'POST',
@@ -146,12 +154,12 @@ export async function postAnnouncementApi(annData) {
     const json = await res.json();
     return { success: true, data: json.data, error: null };
   } catch (err) {
-    console.warn('Backend API duyuru fallback:', err.message);
     return { success: true, fallback: true, error: null };
   }
 }
 
 export async function createBookingApi(bookingData) {
+  if (!API_BASE) return { success: true, fallback: true, error: null };
   try {
     const res = await fetchWithTimeout(`${API_BASE}/bookings`, {
       method: 'POST',
@@ -162,12 +170,12 @@ export async function createBookingApi(bookingData) {
     const json = await res.json();
     return { success: true, data: json.data, error: null };
   } catch (err) {
-    console.warn('Backend API randevu fallback:', err.message);
     return { success: true, fallback: true, error: null };
   }
 }
 
 export async function createOrderApi(orderData) {
+  if (!API_BASE) return { success: true, fallback: true, error: null };
   try {
     const res = await fetchWithTimeout(`${API_BASE}/orders`, {
       method: 'POST',
@@ -178,12 +186,12 @@ export async function createOrderApi(orderData) {
     const json = await res.json();
     return { success: true, data: json.data, error: null };
   } catch (err) {
-    console.warn('Backend API sipariş fallback:', err.message);
     return { success: true, fallback: true, error: null };
   }
 }
 
 export async function postReviewApi(teacherId, reviewData) {
+  if (!API_BASE) return { success: true, fallback: true, error: null };
   try {
     const res = await fetchWithTimeout(`${API_BASE}/reviews`, {
       method: 'POST',
@@ -194,7 +202,6 @@ export async function postReviewApi(teacherId, reviewData) {
     const json = await res.json();
     return { success: true, data: json.data, error: null };
   } catch (err) {
-    console.warn('Backend API yorum fallback:', err.message);
     return { success: true, fallback: true, error: null };
   }
 }
