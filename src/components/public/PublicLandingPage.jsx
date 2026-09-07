@@ -11,7 +11,6 @@ import CouponDealsWidget from './CouponDealsWidget';
 import FinalCta from './FinalCta';
 import PublicFooter from './PublicFooter';
 import MobileBottomBar from './MobileBottomBar';
-import FloatingCouponAd from './FloatingCouponAd';
 import HomepageHeroView from '../HomepageHeroView';
 
 /**
@@ -89,16 +88,14 @@ export default function PublicLandingPage({
         onOpenMenu={setIsMegaMenuOpen}
       />
 
-      {/* 2. FLOATING SIDEBAR COUPON ADVERT (Visible on initial visit like an ad banner) */}
-      <FloatingCouponAd coupons={coupons} />
-
-      {/* 3. MAIN LANDING CONTENT SECTIONS */}
+      {/* 2. MAIN LANDING CONTENT SECTIONS */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-12 sm:space-y-16">
         
-        {/* HERO SECTION WITH CONVERSION SEARCH & PUBLISHER / BOOK SHOWCASE */}
+        {/* HERO SECTION WITH RIGHT-SIDE PERMANENT COUPON BANNER */}
         <Hero
           onRoleChange={onRoleChange}
           onRequestAuthRole={onRequestAuthRole}
+          coupons={coupons}
         />
 
         {/* SOCIAL PROOF 4-ITEM METRICS BAR */}
