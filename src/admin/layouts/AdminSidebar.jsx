@@ -105,7 +105,7 @@ export default function AdminSidebar({
         <div className={`p-4 sm:p-5 border-b border-slate-800/80 flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'}`}>
           <div className="flex items-center gap-3 min-w-0">
             <img 
-              src="/logo.png" 
+              src="./logo.png" 
               alt="Özel Ders Borsası Logo" 
               className="w-10 h-10 rounded-2xl object-cover shadow-lg shadow-blue-500/20 shrink-0 ring-2 ring-amber-500/30" 
             />

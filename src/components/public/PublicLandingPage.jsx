@@ -102,6 +102,11 @@ export default function PublicLandingPage({
         {/* SOCIAL PROOF 4-ITEM METRICS BAR */}
         <MetricsBar />
 
+        {/* TOP PRIORITY: DEDICATED COUPON DEALS & DISCOUNTS MARKETPLACE */}
+        <div id="coupons" className="scroll-mt-24">
+          <CouponDealsWidget coupons={coupons} isSidebar={false} />
+        </div>
+
         {/* POPULAR CATEGORIES & BRANCHES GRID */}
         <CategoryGrid
           onSelectCategory={(catId) => {
@@ -109,8 +114,8 @@ export default function PublicLandingPage({
           }}
         />
 
-        {/* LIVE MARKETPLACE SHOWCASE (TEACHERS, SERVICE REQUESTS, DIGITAL STORE & COUPONS) */}
-        <div id="showcase">
+        {/* LIVE MARKETPLACE SHOWCASE (DIGITAL STORE & COUPONS) */}
+        <div id="showcase" className="scroll-mt-24">
           <HomepageHeroView
             teachers={teachers}
             filteredTeachers={filteredTeachers}
@@ -151,11 +156,6 @@ export default function PublicLandingPage({
 
         {/* VERIFIED TESTIMONIALS & SUCCESS STORIES */}
         <Testimonials />
-
-        {/* DEDICATED COUPON DEALS & DISCOUNTS MARKETPLACE */}
-        <div id="coupons">
-          <CouponDealsWidget coupons={coupons} isSidebar={false} />
-        </div>
 
         {/* HIGH-IMPACT FINAL CALL TO ACTION BANNER */}
         <FinalCta

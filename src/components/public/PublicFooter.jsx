@@ -34,7 +34,7 @@ export default function PublicFooter({
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <img 
-                src="/logo.png" 
+                src="./logo.png" 
                 alt="Özel Ders Borsası Logo" 
                 className="w-11 h-11 rounded-2xl object-cover shadow-lg border border-amber-500/30 shrink-0" 
               />

@@ -74,6 +74,18 @@ export default function HomepageHeroView({
         {/* Tab Switcher */}
         <div className="p-1.5 rounded-2xl bg-white border border-[#E7E2D9] shadow-sm flex items-center space-x-2 overflow-x-auto custom-scrollbar">
           <button
+            onClick={() => setActiveTab('coupons')}
+            className={`px-5 py-2.5 rounded-xl text-xs font-extrabold whitespace-nowrap transition-all flex items-center gap-2 ${
+              activeTab === 'coupons'
+                ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20'
+                : 'text-[#57534E] hover:text-[#1C1917] hover:bg-[#F5F2EC]'
+            }`}
+          >
+            <Tag className="w-4 h-4" />
+            <span>🏷️ İndirim & Fırsat Kuponları ({activeCouponCount})</span>
+          </button>
+
+          <button
             onClick={() => setActiveTab('store')}
             className={`px-5 py-2.5 rounded-xl text-xs font-extrabold whitespace-nowrap transition-all flex items-center gap-2 ${
               activeTab === 'store'
@@ -83,18 +95,6 @@ export default function HomepageHeroView({
           >
             <BookOpen className="w-4 h-4" />
             <span>📚 Yayınevi Kitap & Deneme Mağazası ({products.length})</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('coupons')}
-            className={`px-5 py-2.5 rounded-xl text-xs font-extrabold whitespace-nowrap transition-all flex items-center gap-2 ${
-              activeTab === 'coupons'
-                ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20'
-                : 'text-[#57534E] hover:text-[#1C1917] hover:bg-[#F5F2EC]'
-            }`}
-          >
-            <Tag className="w-4 h-4 text-amber-400" />
-            <span>🏷️ İndirim & Fırsat Kuponları ({activeCouponCount})</span>
           </button>
         </div>
       </div>

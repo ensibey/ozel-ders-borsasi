@@ -277,7 +277,7 @@ export default function MegaHamburgerMenu({
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <img 
-                src="/logo.png" 
+                src="./logo.png" 
                 alt="Özel Ders Borsası Logo" 
                 className="w-10 h-10 rounded-2xl object-cover shadow-md border border-amber-500/30 shrink-0" 
               />

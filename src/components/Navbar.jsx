@@ -55,7 +55,7 @@ export default function Navbar({
               className="flex items-center space-x-2.5 cursor-pointer group"
             >
               <img 
-                src="/logo.png" 
+                src="./logo.png" 
                 alt="Özel Ders Borsası Logo" 
                 className="w-10 h-10 rounded-2xl object-cover shadow-lg shadow-amber-900/30 group-hover:scale-105 transition-transform border border-amber-400/40 shrink-0" 
               />

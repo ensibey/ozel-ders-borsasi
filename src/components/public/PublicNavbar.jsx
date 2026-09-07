@@ -56,8 +56,8 @@ export default function PublicNavbar({
   }, []);
 
   const navLinks = [
-    { label: 'Kitap & Deneme Mağazası', href: '#showcase' },
-    { label: 'Fırsat Kuponları', href: '#coupons' },
+    { label: '🏷️ Fırsat Kuponları', href: '#coupons' },
+    { label: '📚 Kitap & Deneme Mağazası', href: '#showcase' },
     { label: 'Özellikler', href: '#features' },
     { label: 'Nasıl Çalışır?', href: '#how-it-works' }
   ];
@@ -90,7 +90,7 @@ export default function PublicNavbar({
               className="flex items-center gap-2.5 group shrink-0"
             >
               <img 
-                src="/logo.png" 
+                src="./logo.png" 
                 alt="Özel Ders Borsası Logo" 
                 className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl object-cover shadow-md shadow-amber-950/15 border border-amber-500/30 group-hover:scale-105 transition-transform shrink-0" 
               />

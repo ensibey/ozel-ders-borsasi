@@ -83,24 +83,24 @@ export default function Hero({
         <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3.5">
           <button
             onClick={() => {
-              const el = document.getElementById('showcase');
+              const el = document.getElementById('coupons');
               if (el) el.scrollIntoView({ behavior: 'smooth' });
             }}
             className="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs sm:text-sm shadow-xl shadow-emerald-700/25 transition-all flex items-center justify-center gap-2 group hover:scale-[1.02] whitespace-nowrap"
           >
             <Zap className="w-4 h-4 text-emerald-200 fill-emerald-200 shrink-0" />
-            <span>📚 Kitap & Denemeleri İncele</span>
+            <span>🏷️ Fırsat Kuponlarını Gör (%50 İndirim)</span>
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1 shrink-0" />
           </button>
 
           <button
             onClick={() => {
-              const el = document.getElementById('coupons');
+              const el = document.getElementById('showcase');
               if (el) el.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white hover:bg-[#F5F2EC] border border-[#DDD7CD] text-[#292524] font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-sm whitespace-nowrap"
+            className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white hover:bg-[#F5F2EC] border border-[#DDD7CD] text-[#292524] font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-sm whitespace-nowrap hover:border-emerald-600/40"
           >
-            <span>🏷️ Fırsat Kuponlarını Gör ↗</span>
+            <span>📚 Kitap & Deneme Mağazası ↗</span>
           </button>
         </div>
 
