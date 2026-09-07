@@ -129,10 +129,10 @@ export default function CartDrawer({ isOpen, onClose, cartItems, onRemoveFromCar
       onClick={onClose}
       className="fixed inset-0 z-50 overflow-hidden bg-slate-950/80 backdrop-blur-md animate-fadeIn"
     >
-      <div className="absolute inset-y-0 right-0 max-w-full flex pl-10">
+      <div className="absolute inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10">
         <div 
           onClick={(e) => e.stopPropagation()}
-          className="w-screen max-w-md glass-panel border-l border-slate-800 p-6 flex flex-col justify-between shadow-2xl relative"
+          className="w-screen max-w-md glass-panel border-l border-slate-800 p-4 sm:p-6 flex flex-col justify-between shadow-2xl relative"
         >
           
           {/* Header */}

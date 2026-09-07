@@ -37,11 +37,11 @@ export default function LocationModal({ isOpen, onClose, selectedCity, selectedD
   return (
     <div 
       onClick={onClose}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fadeIn"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-md animate-fadeIn"
     >
       <div 
         onClick={(e) => e.stopPropagation()}
-        className="glass-panel w-full max-w-lg rounded-2xl p-6 sm:p-8 border border-indigo-500/20 shadow-2xl relative"
+        className="glass-panel w-full max-w-lg max-h-[92vh] overflow-y-auto rounded-2xl p-5 sm:p-8 border border-indigo-500/20 shadow-2xl relative custom-scrollbar"
       >
         <button 
           onClick={onClose} 

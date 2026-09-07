@@ -84,11 +84,11 @@ export default function AuthModal({ isOpen, onClose, targetRole = 'student', onA
   return (
     <div 
       onClick={onClose}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md animate-fadeIn select-none"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/85 backdrop-blur-md animate-fadeIn select-none"
     >
       <div 
         onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-lg rounded-3xl p-6 sm:p-8 bg-slate-900 border border-slate-700 shadow-2xl relative space-y-6 text-white"
+        className="w-full max-w-lg max-h-[92vh] overflow-y-auto rounded-3xl p-5 sm:p-8 bg-slate-900 border border-slate-700 shadow-2xl relative space-y-5 sm:space-y-6 text-white custom-scrollbar"
       >
         {/* Close Button */}
         <button 

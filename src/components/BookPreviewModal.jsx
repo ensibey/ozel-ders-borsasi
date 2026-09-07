@@ -48,11 +48,11 @@ export default function BookPreviewModal({ isOpen, onClose, product, onAddToCart
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-slate-950/85 backdrop-blur-md animate-fadeIn select-none font-sans">
-      <div className="max-w-4xl w-full h-[90vh] max-h-[720px] rounded-3xl bg-[#FAF8F5] border border-[#DDD7CD] shadow-2xl flex flex-col overflow-hidden relative">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-5 bg-slate-950/85 backdrop-blur-md animate-fadeIn select-none font-sans">
+      <div className="max-w-4xl w-full h-[94vh] sm:h-[90vh] sm:max-h-[720px] rounded-2xl sm:rounded-3xl bg-[#FAF8F5] border border-[#DDD7CD] shadow-2xl flex flex-col overflow-hidden relative">
         
         {/* 1. TOP HEADER BAR */}
-        <div className="p-4 sm:px-6 bg-white border-b border-[#E7E2D9] flex items-center justify-between gap-4 shrink-0">
+        <div className="p-3 sm:p-4 sm:px-6 bg-white border-b border-[#E7E2D9] flex items-center justify-between gap-3 shrink-0">
           <div className="flex items-center space-x-3 min-w-0">
             <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 text-emerald-700 border border-emerald-500/20 flex items-center justify-center shrink-0">
               <BookOpen className="w-5 h-5" />
@@ -122,7 +122,7 @@ export default function BookPreviewModal({ isOpen, onClose, product, onAddToCart
         </div>
 
         {/* 3. INTERACTIVE PDF PAGE CANVAS */}
-        <div className="flex-1 overflow-y-auto p-4 sm:p-8 flex items-center justify-center relative bg-[#EBE7DF]/60 custom-scrollbar">
+        <div className="flex-1 overflow-y-auto p-3 sm:p-8 flex items-start sm:items-center justify-center relative bg-[#EBE7DF]/60 custom-scrollbar">
           
           {/* Watermark Pattern */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-5">
@@ -133,8 +133,8 @@ export default function BookPreviewModal({ isOpen, onClose, product, onAddToCart
 
           {/* Book Page Card View */}
           <div 
-            style={{ transform: `scale(${zoomLevel / 100})`, transformOrigin: 'center center' }}
-            className="w-full max-w-2xl bg-white rounded-2xl shadow-xl border border-[#DDD7CD] p-6 sm:p-10 space-y-6 relative transition-transform duration-200"
+            style={{ transform: `scale(${zoomLevel / 100})`, transformOrigin: 'top center' }}
+            className="w-full max-w-2xl bg-white rounded-2xl shadow-xl border border-[#DDD7CD] p-4 sm:p-10 space-y-4 sm:space-y-6 relative transition-transform duration-200"
           >
             {/* Top Page Header */}
             <div className="flex items-center justify-between pb-4 border-b border-[#F0EBE1]">
@@ -297,20 +297,20 @@ export default function BookPreviewModal({ isOpen, onClose, product, onAddToCart
         </div>
 
         {/* 4. BOTTOM ACTION & PAGE NAVIGATOR BAR */}
-        <div className="p-4 sm:px-6 bg-white border-t border-[#E7E2D9] flex flex-col sm:flex-row items-center justify-between gap-4 shrink-0">
+        <div className="p-3 sm:p-4 sm:px-6 bg-white border-t border-[#E7E2D9] flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 shrink-0">
           {/* Page Switcher Buttons */}
-          <div className="flex items-center gap-2 order-2 sm:order-1">
+          <div className="flex items-center justify-between sm:justify-start w-full sm:w-auto gap-2 order-2 sm:order-1">
             <button
               onClick={handlePrevPage}
               disabled={currentPageIndex === 0}
-              className="px-3.5 py-2 rounded-xl bg-[#F5F2EC] hover:bg-[#EFECE6] disabled:opacity-40 text-[#292524] text-xs font-bold transition-all flex items-center gap-1 border border-[#DDD7CD]"
+              className="px-3 py-2 rounded-xl bg-[#F5F2EC] hover:bg-[#EFECE6] disabled:opacity-40 text-[#292524] text-xs font-bold transition-all flex items-center gap-1 border border-[#DDD7CD]"
             >
               <ChevronLeft className="w-4 h-4" />
-              <span>Önceki Sayfa</span>
+              <span>Önceki</span>
             </button>
 
             {/* Page Dots */}
-            <div className="flex items-center gap-1.5 px-2">
+            <div className="flex items-center gap-1.5 px-1">
               {preview.pages.map((_, idx) => (
                 <button
                   key={idx}
@@ -320,7 +320,7 @@ export default function BookPreviewModal({ isOpen, onClose, product, onAddToCart
                   }}
                   className={`w-2.5 h-2.5 rounded-full transition-all ${
                     currentPageIndex === idx
-                      ? 'w-6 bg-emerald-600'
+                      ? 'w-5 bg-emerald-600'
                       : 'bg-[#DDD7CD] hover:bg-[#A8A29E]'
                   }`}
                   title={`Sayfa ${idx + 1}`}
@@ -331,18 +331,18 @@ export default function BookPreviewModal({ isOpen, onClose, product, onAddToCart
             <button
               onClick={handleNextPage}
               disabled={currentPageIndex === totalPages - 1}
-              className="px-3.5 py-2 rounded-xl bg-[#F5F2EC] hover:bg-[#EFECE6] disabled:opacity-40 text-[#292524] text-xs font-bold transition-all flex items-center gap-1 border border-[#DDD7CD]"
+              className="px-3 py-2 rounded-xl bg-[#F5F2EC] hover:bg-[#EFECE6] disabled:opacity-40 text-[#292524] text-xs font-bold transition-all flex items-center gap-1 border border-[#DDD7CD]"
             >
-              <span>Sonraki Sayfa</span>
+              <span>Sonraki</span>
               <ChevronRight className="w-4 h-4" />
             </button>
           </div>
 
           {/* Add to Cart CTA */}
-          <div className="flex items-center gap-3 w-full sm:w-auto justify-end order-1 sm:order-2">
-            <div className="text-right hidden sm:block">
-              <span className="text-xs text-[#78716C] block">Özel Fiyat</span>
-              <span className="text-base font-black text-[#1C1917] font-mono">₺{product.price}</span>
+          <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto justify-between sm:justify-end order-1 sm:order-2">
+            <div className="text-left sm:text-right">
+              <span className="text-[10px] sm:text-xs text-[#78716C] block">Fiyat</span>
+              <span className="text-sm sm:text-base font-black text-[#1C1917] font-mono">₺{product.price}</span>
             </div>
 
             <button
@@ -350,9 +350,9 @@ export default function BookPreviewModal({ isOpen, onClose, product, onAddToCart
                 if (onAddToCart) onAddToCart(product);
                 onClose();
               }}
-              className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-extrabold shadow-lg shadow-emerald-700/25 transition-all flex items-center justify-center gap-2 group hover:scale-[1.02]"
+              className="flex-1 sm:flex-initial px-4 sm:px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-extrabold shadow-lg shadow-emerald-700/25 transition-all flex items-center justify-center gap-2 group hover:scale-[1.02]"
             >
-              <ShoppingBag className="w-4 h-4" />
+              <ShoppingBag className="w-4 h-4 shrink-0" />
               <span>Sepete Ekle & Satın Al</span>
             </button>
           </div>

@@ -42,10 +42,20 @@ export default function PublicNavbar({
   onOpenThemeCustomizer,
   onOpenAffiliateModal,
   onOpenCart,
-  cartCount = 0
+  cartCount = 0,
+  isMenuOpen,
+  onOpenMenu
 }) {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
+  const [internalMenuOpen, setInternalMenuOpen] = useState(false);
+  const isMegaMenuOpen = isMenuOpen !== undefined ? isMenuOpen : internalMenuOpen;
+  const setIsMegaMenuOpen = (open) => {
+    if (onOpenMenu && typeof open === 'boolean') {
+      if (open) onOpenMenu();
+      else if (onOpenMenu) onOpenMenu(false);
+    }
+    setInternalMenuOpen(open);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -125,12 +135,13 @@ export default function PublicNavbar({
             {/* Cart Button */}
             <button
               onClick={onOpenCart}
-              className="px-3.5 py-2.5 rounded-xl bg-white hover:bg-[#F5F2EC] border border-[#DDD7CD] text-[#292524] font-bold text-xs transition-colors flex items-center gap-1.5 shadow-sm whitespace-nowrap relative"
+              className="px-2.5 sm:px-3.5 py-2 sm:py-2.5 rounded-xl bg-white hover:bg-[#F5F2EC] border border-[#DDD7CD] text-[#292524] font-bold text-xs transition-colors flex items-center gap-1.5 shadow-sm whitespace-nowrap relative"
+              title="Alışveriş Sepeti"
             >
               <ShoppingBag className="w-4 h-4 text-emerald-600 shrink-0" />
-              <span>Sepet</span>
+              <span className="hidden min-[420px]:inline">Sepet</span>
               {cartCount > 0 && (
-                <span className="w-5 h-5 rounded-full bg-emerald-600 text-white text-[10px] font-black flex items-center justify-center">
+                <span className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-emerald-600 text-white text-[9px] sm:text-[10px] font-black flex items-center justify-center">
                   {cartCount}
                 </span>
               )}
@@ -149,20 +160,21 @@ export default function PublicNavbar({
             {!isLoggedIn ? (
               <button
                 onClick={() => onOpenAuthModal && onOpenAuthModal('admin')}
-                className="px-3 py-2.5 rounded-xl text-[#44403C] hover:text-[#1C1917] hover:bg-[#EFECE6] border border-[#DDD7CD] font-bold text-xs transition-colors flex items-center gap-1.5 whitespace-nowrap"
+                className="px-2.5 sm:px-3 py-2 sm:py-2.5 rounded-xl text-[#44403C] hover:text-[#1C1917] hover:bg-[#EFECE6] border border-[#DDD7CD] font-bold text-xs transition-colors flex items-center gap-1.5 whitespace-nowrap"
+                title="Giriş Yap"
               >
                 <LogIn className="w-4 h-4 text-[#78716C] shrink-0" />
-                <span>Giriş Yap</span>
+                <span className="hidden min-[480px]:inline">Giriş Yap</span>
               </button>
             ) : (
               <button
                 onClick={() => {
                   if (onRoleChange) onRoleChange(currentRole);
                 }}
-                className="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-black text-white font-bold text-xs transition-all shadow-md flex items-center gap-2 whitespace-nowrap"
+                className="px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-slate-900 hover:bg-black text-white font-bold text-xs transition-all shadow-md flex items-center gap-1.5 sm:gap-2 whitespace-nowrap"
               >
                 <LayoutDashboard className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>{currentRole.toUpperCase()} Paneli</span>
+                <span className="text-[11px] sm:text-xs">{currentRole.toUpperCase()}</span>
                 <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
               </button>
             )}
@@ -170,7 +182,7 @@ export default function PublicNavbar({
             {/* 4. MEGA HAMBURGER MENU BUTTON (Desktop & Mobile) */}
             <button
               onClick={() => setIsMegaMenuOpen(true)}
-              className="p-2.5 sm:px-3.5 sm:py-2.5 rounded-xl bg-white hover:bg-[#F5F2EC] border border-[#DDD7CD] text-[#1C1917] font-extrabold text-xs transition-all flex items-center gap-2 shadow-sm hover:border-emerald-500/40 group"
+              className="p-2 sm:p-2.5 sm:px-3.5 sm:py-2.5 rounded-xl bg-white hover:bg-[#F5F2EC] border border-[#DDD7CD] text-[#1C1917] font-extrabold text-xs transition-all flex items-center gap-2 shadow-sm hover:border-emerald-500/40 group"
               title="Tüm Sayfalar & Modüller Menüsü"
               aria-label="Ana Menü"
             >

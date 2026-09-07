@@ -10,6 +10,7 @@ import FaqAccordion from './FaqAccordion';
 import CouponDealsWidget from './CouponDealsWidget';
 import FinalCta from './FinalCta';
 import PublicFooter from './PublicFooter';
+import MobileBottomBar from './MobileBottomBar';
 import HomepageHeroView from '../HomepageHeroView';
 
 /**
@@ -56,8 +57,10 @@ export default function PublicLandingPage({
   cartCount = 0,
   coupons = []
 }) {
+  const [isMegaMenuOpen, setIsMegaMenuOpen] = React.useState(false);
+
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAF8F5] text-[#1C1917] font-sans selection:bg-emerald-600 selection:text-white overflow-x-hidden">
+    <div className="min-h-screen flex flex-col bg-[#FAF8F5] text-[#1C1917] font-sans selection:bg-emerald-600 selection:text-white overflow-x-hidden pb-16 sm:pb-0">
       
       {/* 1. STICKY PUBLIC NAVBAR WITH MEGA HAMBURGER MENU */}
       <PublicNavbar
@@ -81,6 +84,8 @@ export default function PublicLandingPage({
         onOpenAffiliateModal={onOpenAffiliateModal}
         onOpenCart={onOpenCart}
         cartCount={cartCount}
+        isMenuOpen={isMegaMenuOpen}
+        onOpenMenu={setIsMegaMenuOpen}
       />
 
       {/* 2. MAIN LANDING CONTENT SECTIONS */}
@@ -160,6 +165,13 @@ export default function PublicLandingPage({
         onOpenRequestWizard={onOpenRequestWizard}
         onOpenCreateProfile={onOpenCreateProfile}
         onOpenAuthModal={onOpenAuthModal}
+      />
+
+      {/* 4. MOBILE-ONLY STICKY 1-TAP BOTTOM BAR */}
+      <MobileBottomBar
+        onOpenCart={onOpenCart}
+        cartCount={cartCount}
+        onOpenMenu={() => setIsMegaMenuOpen(true)}
       />
     </div>
   );

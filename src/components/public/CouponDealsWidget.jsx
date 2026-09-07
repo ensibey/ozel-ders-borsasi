@@ -72,7 +72,7 @@ export default function CouponDealsWidget({ coupons = [], isSidebar = false }) {
   ];
 
   return (
-    <div className={`rounded-3xl bg-white border border-[#E7E2D9] shadow-sm select-none overflow-hidden ${isSidebar ? 'p-5' : 'p-6 sm:p-8'}`}>
+    <div className={`rounded-3xl bg-white border border-[#E7E2D9] shadow-sm select-none overflow-hidden ${isSidebar ? 'p-4 sm:p-5' : 'p-4 sm:p-6 lg:p-8'}`}>
       
       {/* Header Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-[#F5F2EC]">
@@ -235,11 +235,11 @@ export default function CouponDealsWidget({ coupons = [], isSidebar = false }) {
       {selectedCouponModal && (
         <div 
           onClick={() => setSelectedCouponModal(null)}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md animate-fadeIn select-none"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/85 backdrop-blur-md animate-fadeIn select-none"
         >
           <div 
             onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-md rounded-3xl bg-white border border-[#E7E2D9] shadow-2xl p-6 sm:p-8 space-y-6 text-[#1C1917] relative animate-in zoom-in-95 duration-200"
+            className="w-full max-w-md max-h-[92vh] overflow-y-auto rounded-3xl bg-white border border-[#E7E2D9] shadow-2xl p-5 sm:p-8 space-y-5 sm:space-y-6 text-[#1C1917] relative animate-in zoom-in-95 duration-200"
           >
             {/* Close */}
             <button 
