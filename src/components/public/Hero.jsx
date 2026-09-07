@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { 
   Search, 
   Sparkles, 
@@ -68,15 +68,28 @@ export default function Hero({
     });
   };
 
-  // Copy code and navigate to the admin's specified URL
+  // Copy code and navigate safely to the admin's specified URL
   const handleGoToAdminUrl = (coupon) => {
-    navigator.clipboard.writeText(coupon.code);
-    const url = coupon.storeUrl || '#showcase';
-    if (url.startsWith('http')) {
-      window.open(url, '_blank', 'noopener,noreferrer');
-    } else {
-      const el = document.querySelector(url);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    if (coupon?.code) {
+      try {
+        navigator.clipboard?.writeText(coupon.code);
+      } catch (e) {}
+    }
+    const rawUrl = (coupon?.storeUrl || '#showcase').trim();
+    
+    // Security sanitization: Block malicious URI schemes (javascript:, data:, vbscript:)
+    if (/^(javascript|data|vbscript):/i.test(rawUrl)) {
+      setSelectedCouponModal(null);
+      return;
+    }
+
+    if (rawUrl.startsWith('http://') || rawUrl.startsWith('https://')) {
+      window.open(rawUrl, '_blank', 'noopener,noreferrer');
+    } else if (rawUrl.startsWith('#')) {
+      try {
+        const el = document.querySelector(rawUrl);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      } catch (e) {}
     }
     setSelectedCouponModal(null);
   };

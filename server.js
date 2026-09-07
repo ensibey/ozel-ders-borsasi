@@ -9,8 +9,84 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Security: Hide server technology stack from attackers
+app.disable('x-powered-by');
+
+// Security: Enforce defensive HTTP response headers
+app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  next();
+});
+
+// Security: Simple in-memory flood protection / rate limiter for mutations
+const ipRequestCounts = new Map();
+const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
+const MAX_MUTATIONS_PER_WINDOW = 60; // 60 requests / minute
+
+app.use((req, res, next) => {
+  if (['POST', 'PUT', 'DELETE', 'PATCH'].includes(req.method)) {
+    const ip = req.ip || req.connection.remoteAddress || 'unknown';
+    const now = Date.now();
+    const record = ipRequestCounts.get(ip) || { count: 0, resetAt: now + RATE_LIMIT_WINDOW_MS };
+
+    if (now > record.resetAt) {
+      record.count = 1;
+      record.resetAt = now + RATE_LIMIT_WINDOW_MS;
+    } else {
+      record.count += 1;
+      if (record.count > MAX_MUTATIONS_PER_WINDOW) {
+        return res.status(429).json({
+          success: false,
+          message: 'Çok fazla istek gönderildi. Lütfen biraz bekleyin.'
+        });
+      }
+    }
+    ipRequestCounts.set(ip, record);
+  }
+  next();
+});
+
+// Periodic cleanup of rate limiter map
+setInterval(() => {
+  const now = Date.now();
+  for (const [ip, record] of ipRequestCounts.entries()) {
+    if (now > record.resetAt) {
+      ipRequestCounts.delete(ip);
+    }
+  }
+}, 5 * 60 * 1000);
+
 app.use(cors());
-app.use(express.json({ limit: '5mb' }));
+app.use(express.json({ limit: '2mb' }));
+
+// Security: Deep recursive string sanitizer to neutralize malicious script tags
+const sanitizeData = (data) => {
+  if (typeof data === 'string') {
+    return data.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '').trim();
+  }
+  if (Array.isArray(data)) {
+    return data.map(sanitizeData);
+  }
+  if (data && typeof data === 'object') {
+    const sanitized = {};
+    for (const key of Object.keys(data)) {
+      sanitized[key] = sanitizeData(data[key]);
+    }
+    return sanitized;
+  }
+  return data;
+};
+
+app.use((req, res, next) => {
+  if (req.body && typeof req.body === 'object') {
+    req.body = sanitizeData(req.body);
+  }
+  next();
+});
 
 // Serve built frontend assets
 app.use(express.static(path.join(__dirname, 'dist')));

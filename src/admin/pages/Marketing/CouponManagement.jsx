@@ -281,11 +281,11 @@ export default function CouponManagement({ coupons = [], onAddCoupon, onUpdateCo
                         <Store className="w-3.5 h-3.5 text-emerald-400" />
                         <span>{coup.storeName || 'Özel Ders Borsası'}</span>
                       </div>
-                      {coup.storeUrl && (
+                      {coup.storeUrl && !/^(javascript|data|vbscript):/i.test(coup.storeUrl) && (
                         <a 
-                          href={coup.storeUrl} 
+                          href={coup.storeUrl.startsWith('http://') || coup.storeUrl.startsWith('https://') ? coup.storeUrl : '#'} 
                           target="_blank" 
-                          rel="noreferrer"
+                          rel="noopener noreferrer"
                           className="text-[10px] text-indigo-400 hover:underline flex items-center gap-1 mt-0.5"
                         >
                           <span>{coup.storeUrl}</span>

@@ -104,18 +104,18 @@ export default function SystemSettings({
     try {
       const saved = localStorage.getItem('odb_api_config');
       return saved ? JSON.parse(saved) : {
-        paymentApiKey: 'iyzi_live_sec_890a82b93c847d10',
-        paymentSecret: 'iyzi_secret_9981248012',
+        paymentApiKey: 'iyzi_sandbox_test_key_demo',
+        paymentSecret: 'iyzi_sandbox_test_secret_demo',
         smsWebhookUrl: 'https://api.ozeldersborsasi.com/webhooks/sms-gateway',
-        webhookSecret: 'whsec_991823901488102948',
+        webhookSecret: 'whsec_sandbox_test_signature_demo',
         whatsappNotificationEnabled: true
       };
     } catch (e) {
       return {
-        paymentApiKey: 'iyzi_live_sec_890a82b93c847d10',
-        paymentSecret: 'iyzi_secret_9981248012',
+        paymentApiKey: 'iyzi_sandbox_test_key_demo',
+        paymentSecret: 'iyzi_sandbox_test_secret_demo',
         smsWebhookUrl: 'https://api.ozeldersborsasi.com/webhooks/sms-gateway',
-        webhookSecret: 'whsec_991823901488102948',
+        webhookSecret: 'whsec_sandbox_test_signature_demo',
         whatsappNotificationEnabled: true
       };
     }
