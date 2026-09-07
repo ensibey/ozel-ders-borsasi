@@ -200,36 +200,62 @@ export default function AdminSidebar({
 
         {/* User Card */}
         {!isCollapsed ? (
-          <div className="p-3 bg-slate-950/70 border border-slate-800 rounded-2xl flex items-center justify-between">
-            <div className="flex items-center gap-2.5 min-w-0">
-              <img 
-                src={adminUser?.avatar} 
-                alt="Admin Avatar" 
-                className="w-9 h-9 rounded-xl object-cover ring-2 ring-blue-500/40 shrink-0" 
-              />
-              <div className="min-w-0">
-                <p className="text-xs font-bold text-white truncate">{adminUser?.name || 'Sistem Yöneticisi'}</p>
-                <span className="text-[10px] text-emerald-400 font-mono font-medium flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping inline-block"></span>
-                  {adminUser?.badge || 'Super Admin'}
-                </span>
+          <div className="p-3 bg-gradient-to-b from-slate-950/90 to-slate-900 border border-amber-500/30 rounded-2xl space-y-2.5">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2.5 min-w-0">
+                <img 
+                  src={adminUser?.avatar} 
+                  alt="Admin Avatar" 
+                  className="w-9 h-9 rounded-xl object-cover ring-2 ring-amber-500/60 shrink-0" 
+                />
+                <div className="min-w-0">
+                  <p className="text-xs font-black text-white truncate flex items-center gap-1">
+                    <span>{adminUser?.name || 'Mert Başyönetici'}</span>
+                    <span className="text-amber-400">👑</span>
+                  </p>
+                  <span className="text-[10px] text-amber-400 font-mono font-bold flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping inline-block"></span>
+                    ROOT GOD-MODE
+                  </span>
+                </div>
+              </div>
+              
+              <button
+                onClick={logout}
+                title="Güvenli Çıkış Yap"
+                className="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded-xl transition-colors shrink-0"
+              >
+                <LogOut className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Quick Switch Portals as SuperAdmin */}
+            <div className="pt-2 border-t border-slate-800/80 space-y-1">
+              <span className="text-[9px] font-bold text-slate-500 uppercase tracking-wider block px-1">
+                Tek Tıkla Portal Değiştir
+              </span>
+              <div className="grid grid-cols-2 gap-1 text-[10px]">
+                <button
+                  onClick={() => onSwitchRole && onSwitchRole('student')}
+                  className="py-1 px-2 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/20 rounded-lg font-bold text-left truncate transition-colors"
+                >
+                  🎓 Öğrenci
+                </button>
+                <button
+                  onClick={() => onSwitchRole && onSwitchRole('vendor')}
+                  className="py-1 px-2 bg-purple-500/10 hover:bg-purple-500/20 text-purple-400 border border-purple-500/20 rounded-lg font-bold text-left truncate transition-colors"
+                >
+                  🏢 Yayınevi
+                </button>
               </div>
             </div>
-            
-            <button
-              onClick={logout}
-              title="Güvenli Çıkış Yap"
-              className="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded-xl transition-colors shrink-0"
-            >
-              <LogOut className="w-4 h-4" />
-            </button>
           </div>
         ) : (
           <div className="flex flex-col items-center gap-2">
             <img 
               src={adminUser?.avatar} 
               alt="Admin" 
-              className="w-8 h-8 rounded-xl object-cover ring-2 ring-blue-500/40" 
+              className="w-8 h-8 rounded-xl object-cover ring-2 ring-amber-500/60" 
             />
             <button
               onClick={logout}
@@ -244,11 +270,11 @@ export default function AdminSidebar({
         {/* Switch to Public Marketplace */}
         {!isCollapsed && (
           <button
-            onClick={onExitAdmin}
+            onClick={() => onSwitchRole ? onSwitchRole('general') : onExitAdmin()}
             className="w-full py-2 px-3 bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 text-slate-300 hover:text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-colors shadow-sm"
           >
             <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
-            <span>Ana Pazara Geç</span>
+            <span>Ana Vitrine / Pazara Geç</span>
           </button>
         )}
       </div>

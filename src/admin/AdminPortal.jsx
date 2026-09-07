@@ -94,7 +94,12 @@ export default function AdminPortal({
               products={products}
               serviceRequests={serviceRequests}
               platformCommission={platformCommission}
+              onUpdateCommission={onUpdateCommission}
+              onUpdateTeacher={onUpdateTeacher}
+              coupons={coupons}
+              onSwitchRole={onSwitchRole}
               onNavigateTab={setActiveTab}
+              showToast={showToast}
             />
           )}
 
@@ -146,6 +151,16 @@ export default function AdminPortal({
               announcements={announcements}
               onAddAnnouncement={onAddAnnouncement}
               onDeleteAnnouncement={onDeleteAnnouncement}
+              teachers={teachers}
+              onUpdateTeacher={onUpdateTeacher}
+              coupons={coupons}
+              onUpdateCoupon={onUpdateCoupon}
+              onAddCoupon={onAddCoupon}
+              onDeleteCoupon={onDeleteCoupon}
+              onSwitchRole={onSwitchRole}
+              platformCommission={platformCommission}
+              onUpdateCommission={onUpdateCommission}
+              showToast={showToast}
             />
           )}
         </AdminLayout>

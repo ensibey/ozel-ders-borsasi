@@ -19,7 +19,12 @@ import {
   CheckCircle2,
   FileSpreadsheet,
   RefreshCcw,
-  BadgeAlert
+  BadgeAlert,
+  Download,
+  Trash2,
+  Zap,
+  Building2,
+  Tag
 } from 'lucide-react';
 import { useAdminAuth } from '../../context/AdminAuthContext';
 
@@ -28,9 +33,14 @@ export default function AdminOverview({
   products = [], 
   serviceRequests = [], 
   platformCommission = 12, 
-  onNavigateTab 
+  onUpdateCommission,
+  onUpdateTeacher,
+  coupons = [],
+  onSwitchRole,
+  onNavigateTab,
+  showToast
 }) {
-  const { auditLogs, logAction } = useAdminAuth();
+  const { auditLogs, logAction, exportSystemBackup, clearSystemCache } = useAdminAuth();
   const [chartTimeframe, setChartTimeframe] = useState('7d'); // '7d', '30d', '90d'
   const [hoveredDataIndex, setHoveredDataIndex] = useState(null);
 
@@ -127,8 +137,119 @@ export default function AdminOverview({
     if (onNavigateTab && tabTarget) onNavigateTab(tabTarget);
   };
 
+  const handleBulkApprove = () => {
+    const unverified = teachers.filter(t => !t.verified);
+    if (unverified.length === 0) {
+      if (showToast) showToast('Onay bekleyen eğitmen bulunamadı.', 'info');
+      return;
+    }
+    unverified.forEach(t => {
+      if (onUpdateTeacher) onUpdateTeacher(t.id, { verified: true });
+    });
+    logAction('BULK_TEACHER_APPROVAL', 'MODERATION', 'Tüm Eğitmenler', `${unverified.length} bekleyen eğitmen başvurusu tek tıkla onaylandı.`, 'success');
+    if (showToast) showToast(`${unverified.length} eğitmen tek tıkla başarıyla onaylandı!`, 'success');
+  };
+
+  const handleClearCache = () => {
+    if (clearSystemCache) clearSystemCache();
+    if (showToast) showToast('Sistem log önbelleği ve geçici veriler temizlendi.', 'info');
+  };
+
+  const handleExportBackup = () => {
+    if (exportSystemBackup) {
+      const ok = exportSystemBackup();
+      if (ok && showToast) showToast('Sistem veritabanı JSON yedeği başarıyla indirildi.', 'success');
+    }
+  };
+
   return (
     <div className="space-y-6">
+      {/* 👑 ROOT SÜPER YÖNETİCİ KOMUTA & YETKİ KONSOLU */}
+      <div className="p-5 rounded-3xl bg-gradient-to-r from-amber-950/50 via-slate-900 to-purple-950/50 border border-amber-500/40 shadow-2xl space-y-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-slate-800">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-2xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center text-xl shrink-0 shadow-lg shadow-amber-500/10">
+              👑
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h2 className="text-base font-black text-white tracking-tight">Root Süper Yönetici Komuta Masası</h2>
+                <span className="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-black uppercase tracking-wider animate-pulse">
+                  TAM YETKİLİ (GOD-MODE)
+                </span>
+              </div>
+              <p className="text-xs text-slate-400">
+                Sistem genelinde tüm kuponlara, satıcılara, kullanıcılara ve maliyet/komisyon oranlarına sınırsız müdahale yetkiniz bulunmaktadır.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 self-start md:self-auto">
+            <span className="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-xl flex items-center gap-1.5 font-bold">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping inline-block" />
+              RBAC Bypass: 100% Aktif
+            </span>
+          </div>
+        </div>
+
+        {/* Master Quick Power Actions */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 text-xs font-bold">
+          <button
+            onClick={handleBulkApprove}
+            className="p-2.5 rounded-2xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 flex flex-col items-center justify-center gap-1.5 text-center transition-all hover:scale-[1.02] active:scale-95"
+            title="Bekleyen tüm öğretmenleri anında onayla"
+          >
+            <Zap className="w-4 h-4 text-amber-400" />
+            <span className="text-[11px]">Tümünü Onayla ({totalPendingTeachers})</span>
+          </button>
+
+          <button
+            onClick={() => onNavigateTab && onNavigateTab('coupons')}
+            className="p-2.5 rounded-2xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex flex-col items-center justify-center gap-1.5 text-center transition-all hover:scale-[1.02] active:scale-95"
+            title="Kupon ve promosyonları yönet"
+          >
+            <Tag className="w-4 h-4 text-emerald-400" />
+            <span className="text-[11px]">Kupon Masası ({coupons.length})</span>
+          </button>
+
+          <button
+            onClick={() => onSwitchRole && onSwitchRole('student')}
+            className="p-2.5 rounded-2xl bg-blue-500/10 hover:bg-blue-500/20 text-blue-300 border border-blue-500/30 flex flex-col items-center justify-center gap-1.5 text-center transition-all hover:scale-[1.02] active:scale-95"
+            title="Öğrenci arayüzüne doğrudan geçiş"
+          >
+            <GraduationCap className="w-4 h-4 text-blue-400" />
+            <span className="text-[11px]">Öğrenci Portalı</span>
+          </button>
+
+          <button
+            onClick={() => onSwitchRole && onSwitchRole('vendor')}
+            className="p-2.5 rounded-2xl bg-purple-500/10 hover:bg-purple-500/20 text-purple-300 border border-purple-500/30 flex flex-col items-center justify-center gap-1.5 text-center transition-all hover:scale-[1.02] active:scale-95"
+            title="Yayınevi yönetim paneline doğrudan geçiş"
+          >
+            <Building2 className="w-4 h-4 text-purple-400" />
+            <span className="text-[11px]">Yayınevi Portalı</span>
+          </button>
+
+          <button
+            onClick={handleExportBackup}
+            className="p-2.5 rounded-2xl bg-slate-800 hover:bg-slate-750 text-slate-200 border border-slate-700 flex flex-col items-center justify-center gap-1.5 text-center transition-all hover:scale-[1.02] active:scale-95"
+            title="Tüm sistem yedeğini JSON olarak indir"
+          >
+            <Download className="w-4 h-4 text-indigo-400" />
+            <span className="text-[11px]">Veritabanı Yedeği</span>
+          </button>
+
+          <button
+            onClick={handleClearCache}
+            className="p-2.5 rounded-2xl bg-slate-800 hover:bg-rose-500/20 text-slate-300 hover:text-rose-300 border border-slate-700 hover:border-rose-500/30 flex flex-col items-center justify-center gap-1.5 text-center transition-all hover:scale-[1.02] active:scale-95"
+            title="Geçici logları ve önbelleği sıfırla"
+          >
+            <Trash2 className="w-4 h-4 text-slate-400 group-hover:text-rose-400" />
+            <span className="text-[11px]">Önbelleği Temizle</span>
+          </button>
+        </div>
+      </div>
+
       {/* 1. Header Banner */}
       <div className="p-6 rounded-3xl bg-gradient-to-r from-blue-950/70 via-slate-900 to-indigo-950/70 border border-blue-900/40 relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-2xl">
         <div className="space-y-1 relative z-10">
