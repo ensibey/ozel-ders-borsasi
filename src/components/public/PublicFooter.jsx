@@ -119,17 +119,6 @@ export default function PublicFooter({
               <li><span className="text-[#78716C] hover:text-slate-300 cursor-pointer transition-colors">Mesafeli Satış Sözleşmesi</span></li>
               <li><span className="text-[#78716C] hover:text-slate-300 cursor-pointer transition-colors">Gizlilik & Çerez Politikası</span></li>
               <li><span className="text-[#78716C] hover:text-slate-300 cursor-pointer transition-colors">İptal ve İade Prosedürü</span></li>
-              <li className="pt-2">
-                <button
-                  onClick={() => {
-                    window.location.hash = '#admin';
-                    if (onOpenAuthModal) onOpenAuthModal('admin');
-                  }}
-                  className="text-slate-600 hover:text-slate-400 transition-colors text-[10px] font-mono flex items-center gap-1"
-                >
-                  <Lock className="w-3 h-3" /> Yönetici Portalı Girişi
-                </button>
-              </li>
             </ul>
           </div>
 
