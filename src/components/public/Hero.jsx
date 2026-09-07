@@ -1,42 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Search, 
   MapPin, 
   Sparkles, 
   Zap, 
   CheckCircle2, 
-  GraduationCap, 
   ShieldCheck, 
   ArrowRight, 
-  Video, 
-  PlayCircle,
-  Star,
-  ChevronRight
+  Star, 
+  ChevronRight,
+  BookOpen,
+  Tag,
+  Store,
+  ShoppingBag,
+  Flame,
+  Layers
 } from 'lucide-react';
-import { SUBJECTS } from '../../data/mockData';
 
 /**
  * Hero: High-Converting Hero Section featuring an announcement badge,
- * impactful H1, dual CTAs, and a modern interactive product mockup card.
+ * impactful H1, dual CTAs, and a modern publisher book & coupon search canvas.
  */
 export default function Hero({
-  selectedCity = 'İstanbul',
-  selectedDistrict = 'Kadıköy',
-  selectedSubject = 'all',
-  setSelectedSubject,
-  onlineOnlyFilter = false,
-  setOnlineOnlyFilter,
-  onOpenRequestWizard,
-  onOpenCreateProfile,
-  tutorCount = 850
+  onRoleChange,
+  onRequestAuthRole
 }) {
-  const handleScrollToDemo = (e) => {
-    e.preventDefault();
-    const target = document.getElementById('how-it-works');
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -46,15 +36,28 @@ export default function Hero({
     }
   };
 
+  const handleScrollToCoupons = () => {
+    const el = document.getElementById('coupons') || document.getElementById('showcase');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleScrollToStore = () => {
+    const el = document.getElementById('showcase');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
-    <section className="relative pt-6 sm:pt-10 pb-16 overflow-hidden select-none">
+    <section className="relative pt-6 sm:pt-10 pb-16 overflow-hidden select-none font-sans">
       {/* 1. Subtle Background Ambient Glows */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-gradient-to-tr from-emerald-500/10 via-teal-500/5 to-amber-500/10 rounded-full blur-3xl pointer-events-none -z-10" />
 
       <div className="max-w-5xl mx-auto text-center space-y-7">
         
         {/* 2. Eye-Catching Announcement Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[#DDD7CD] shadow-sm text-xs font-bold text-[#44403C] hover:border-emerald-500/40 transition-all cursor-pointer group">
+        <div 
+          onClick={handleScrollToCoupons}
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[#DDD7CD] shadow-sm text-xs font-bold text-[#44403C] hover:border-emerald-500/40 transition-all cursor-pointer group"
+        >
           <span className="flex h-2 w-2 relative shrink-0">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -76,16 +79,13 @@ export default function Hero({
 
         {/* 4. Crystal-Clear 2-Line Value Proposition Subtext */}
         <p className="text-xs sm:text-base lg:text-lg text-[#57534E] max-w-2xl mx-auto font-medium leading-relaxed">
-          En seçkin yayınevlerinin dijital soru bankalarını, deneme sınavlarını doğrudan sepetinize ekleyin ve anlaşmalı mağazalarda anında geçerli <strong className="text-[#1C1917]">indirim kodlarını</strong> tek tıkla kopyalayın!
+          En seçkin yayınevlerinin soru bankalarını, deneme sınavı fasiküllerini sepetinize ekleyin ve anlaşmalı mağazalarda geçerli <strong className="text-[#1C1917]">indirim kodlarını</strong> anında kullanın!
         </p>
 
         {/* 5. Dual Primary & Secondary Action CTA Buttons */}
         <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3.5">
           <button
-            onClick={() => {
-              const el = document.getElementById('coupons');
-              if (el) el.scrollIntoView({ behavior: 'smooth' });
-            }}
+            onClick={handleScrollToCoupons}
             className="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs sm:text-sm shadow-xl shadow-emerald-700/25 transition-all flex items-center justify-center gap-2 group hover:scale-[1.02] whitespace-nowrap"
           >
             <Zap className="w-4 h-4 text-emerald-200 fill-emerald-200 shrink-0" />
@@ -94,17 +94,15 @@ export default function Hero({
           </button>
 
           <button
-            onClick={() => {
-              const el = document.getElementById('showcase');
-              if (el) el.scrollIntoView({ behavior: 'smooth' });
-            }}
+            onClick={handleScrollToStore}
             className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white hover:bg-[#F5F2EC] border border-[#DDD7CD] text-[#292524] font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-sm whitespace-nowrap hover:border-emerald-600/40"
           >
-            <span>📚 Kitap & Deneme Mağazası ↗</span>
+            <BookOpen className="w-4 h-4 text-emerald-600" />
+            <span>📚 Yayınevi Kitap Mağazası ↗</span>
           </button>
         </div>
 
-        {/* 6. Modern Interactive Product Preview Card / Dashboard Mockup */}
+        {/* 6. Modern Interactive Publisher Search & Live Showcase Mockup */}
         <div className="relative mt-12 pt-2">
           {/* Main Mockup Canvas Container */}
           <div className="relative rounded-3xl bg-white border border-[#DDD7CD] shadow-2xl p-4 sm:p-6 overflow-hidden max-w-4xl mx-auto text-left space-y-4 ring-1 ring-black/5">
@@ -116,139 +114,141 @@ export default function Hero({
                 <div className="w-3 h-3 rounded-full bg-amber-400"></div>
                 <div className="w-3 h-3 rounded-full bg-emerald-400"></div>
                 <span className="ml-2 text-xs font-bold text-[#78716C] font-mono">
-                  ozeldersborsasi.com/canli-pazar
+                  ozeldersborsasi.com/kitap-ve-kupon-pazari
                 </span>
               </div>
 
               <div className="flex items-center gap-2 text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200/80">
                 <ShieldCheck className="w-3.5 h-3.5" />
-                <span>%100 Havuz Korumalı Güvenli Ödeme</span>
+                <span>%100 Orijinal Yayınevi Baskısı & Güvenli Satış</span>
               </div>
             </div>
 
-            {/* Mockup Interactive Search & Matcher Bar */}
+            {/* Mockup Interactive Book & Publisher Search Bar */}
             <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 sm:grid-cols-12 gap-2.5 pt-1">
-              {/* Subject */}
-              <div className="sm:col-span-4 flex items-center bg-[#FAF8F5] border border-[#E7E2D9] rounded-2xl px-3.5 py-2.5">
-                <GraduationCap className="w-4 h-4 text-emerald-600 mr-2 shrink-0" />
+              {/* Search Term */}
+              <div className="sm:col-span-6 flex items-center bg-[#FAF8F5] border border-[#E7E2D9] rounded-2xl px-3.5 py-2.5">
+                <Search className="w-4 h-4 text-emerald-600 mr-2.5 shrink-0" />
                 <div className="w-full min-w-0">
-                  <span className="block text-[9px] font-bold uppercase tracking-wider text-[#78716C]">Ders / Branş</span>
+                  <span className="block text-[9px] font-bold uppercase tracking-wider text-[#78716C]">Kitap & Yayınevi Ara</span>
+                  <input
+                    type="text"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    placeholder="Örn: 2026 AYT Matematik, Borsa Akademi..."
+                    className="w-full bg-transparent text-xs font-extrabold text-[#1C1917] placeholder-[#A8A29E] focus:outline-none truncate"
+                  />
+                </div>
+              </div>
+
+              {/* Category */}
+              <div className="sm:col-span-3 flex items-center bg-[#FAF8F5] border border-[#E7E2D9] rounded-2xl px-3.5 py-2.5">
+                <Layers className="w-4 h-4 text-teal-600 mr-2 shrink-0" />
+                <div className="w-full min-w-0">
+                  <span className="block text-[9px] font-bold uppercase tracking-wider text-[#78716C]">Kategori</span>
                   <select
-                    value={selectedSubject}
-                    onChange={(e) => setSelectedSubject && setSelectedSubject(e.target.value)}
+                    value={selectedCategory}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
                     className="w-full bg-transparent text-xs font-extrabold text-[#1C1917] focus:outline-none cursor-pointer truncate"
                   >
-                    <option value="all">Tüm Branşlar ({SUBJECTS?.length || 10}+)</option>
-                    {(SUBJECTS || []).map((s, i) => {
-                      const subjectName = typeof s === 'string' ? s : s.name || s.id;
-                      const subjectVal = typeof s === 'string' ? s : s.name || s.id;
-                      return (
-                        <option key={i} value={subjectVal}>
-                          {subjectName}
-                        </option>
-                      );
-                    })}
+                    <option value="all">Tüm Yayınlar</option>
+                    <option value="yks">YKS & AYT-TYT</option>
+                    <option value="lgs">LGS 8. Sınıf</option>
+                    <option value="deneme">Deneme Sınavı</option>
+                    <option value="soru">Soru Bankası</option>
                   </select>
                 </div>
               </div>
 
-              {/* City / District */}
-              <div className="sm:col-span-3 flex items-center bg-[#FAF8F5] border border-[#E7E2D9] rounded-2xl px-3.5 py-2.5">
-                <MapPin className="w-4 h-4 text-emerald-600 mr-2 shrink-0" />
-                <div className="min-w-0">
-                  <span className="block text-[9px] font-bold uppercase tracking-wider text-[#78716C]">Bölge</span>
-                  <span className="block text-xs font-extrabold text-[#1C1917] truncate">{selectedCity}, {selectedDistrict}</span>
-                </div>
-              </div>
-
-              {/* Mode format */}
-              <div className="sm:col-span-2 flex items-center bg-[#FAF8F5] border border-[#E7E2D9] rounded-2xl px-3 py-2.5">
-                <Video className="w-4 h-4 text-teal-600 mr-2 shrink-0" />
-                <div>
-                  <span className="block text-[9px] font-bold uppercase tracking-wider text-[#78716C]">Format</span>
-                  <button
-                    type="button"
-                    onClick={() => setOnlineOnlyFilter && setOnlineOnlyFilter(!onlineOnlyFilter)}
-                    className="text-xs font-bold text-emerald-700 hover:underline"
-                  >
-                    {onlineOnlyFilter ? 'Online' : 'Tümü'}
-                  </button>
-                </div>
-              </div>
-
-              {/* Match Action */}
+              {/* Action Button */}
               <div className="sm:col-span-3">
                 <button
                   type="submit"
-                  className="w-full h-full min-h-[46px] rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md shadow-emerald-700/20 transition-all flex items-center justify-center gap-1.5 whitespace-nowrap"
+                  className="w-full h-full min-h-[46px] rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-md shadow-emerald-700/20 transition-all flex items-center justify-center gap-1.5 whitespace-nowrap group hover:scale-[1.01]"
                 >
-                  <Search className="w-3.5 h-3.5" />
-                  <span>Eğitmenleri Listele</span>
+                  <BookOpen className="w-3.5 h-3.5" />
+                  <span>Yayınları Listele</span>
                 </button>
               </div>
             </form>
 
-            {/* Mockup Preview Bottom Grid (Simulated Live Matching Feed) */}
+            {/* Mockup Preview Bottom Grid (Featuring Top Publisher Book + Flash Coupon) */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-              <div className="p-3.5 rounded-2xl bg-[#FAF8F5] border border-[#E7E2D9] flex items-center justify-between gap-3">
-                <div className="flex items-center gap-3">
+              
+              {/* Product 1: Best Seller Book */}
+              <div 
+                onClick={handleScrollToStore}
+                className="p-3.5 rounded-2xl bg-[#FAF8F5] border border-[#E7E2D9] hover:border-emerald-500/40 flex items-center justify-between gap-3 cursor-pointer transition-all group/item shadow-sm"
+              >
+                <div className="flex items-center gap-3 min-w-0">
                   <img
-                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&auto=format&fit=crop&q=80"
-                    alt="Eğitmen"
-                    className="w-10 h-10 rounded-xl object-cover ring-2 ring-emerald-500/30"
+                    src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&q=80&w=150"
+                    alt="2026 YKS Matematik Kitabı"
+                    className="w-12 h-12 rounded-xl object-cover ring-1 ring-black/10 shrink-0 group-hover/item:scale-105 transition-transform"
                   />
-                  <div>
-                    <div className="flex items-center gap-1">
-                      <span className="text-xs font-bold text-[#1C1917]">Dr. Selin Demir</span>
-                      <span className="text-[10px] text-emerald-700 font-extrabold">✓ Boğaziçi</span>
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-xs font-black text-[#1C1917] truncate">2026 YKS Matematik Fasikülü</span>
+                      <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-emerald-100 text-emerald-800 font-extrabold shrink-0">Yeni</span>
                     </div>
-                    <span className="text-[11px] text-[#78716C]">Matematik • ₺750/sa • ⭐ 4.98</span>
+                    <span className="text-[11px] text-[#78716C] block truncate mt-0.5">
+                      Borsa Akademi • ₺240 • ⭐ 4.9
+                    </span>
                   </div>
                 </div>
                 <button 
-                  onClick={onOpenRequestWizard}
-                  className="px-2.5 py-1.5 bg-white hover:bg-emerald-50 border border-[#DDD7CD] text-emerald-700 text-[11px] font-bold rounded-xl transition-colors shrink-0"
+                  className="px-2.5 py-1.5 bg-white group-hover/item:bg-emerald-600 group-hover/item:text-white border border-[#DDD7CD] text-emerald-800 text-[11px] font-bold rounded-xl transition-all shrink-0"
                 >
-                  Teklif İste
+                  İncele ↗
                 </button>
               </div>
 
-              <div className="p-3.5 rounded-2xl bg-[#FAF8F5] border border-[#E7E2D9] flex items-center justify-between gap-3">
-                <div className="flex items-center gap-3">
-                  <img
-                    src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80"
-                    alt="Eğitmen"
-                    className="w-10 h-10 rounded-xl object-cover ring-2 ring-blue-500/30"
-                  />
-                  <div>
-                    <div className="flex items-center gap-1">
-                      <span className="text-xs font-bold text-[#1C1917]">Prof. Levent Öz</span>
-                      <span className="text-[10px] text-blue-700 font-extrabold">✓ İTÜ Fizik</span>
+              {/* Deal 2: Active Flash Coupon */}
+              <div 
+                onClick={handleScrollToCoupons}
+                className="p-3.5 rounded-2xl bg-[#FAF8F5] border border-amber-500/30 hover:border-amber-500/60 flex items-center justify-between gap-3 cursor-pointer transition-all group/deal shadow-sm"
+              >
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-12 h-12 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-700 flex items-center justify-center shrink-0 group-hover/deal:scale-105 transition-transform">
+                    <Flame className="w-6 h-6 text-amber-600" />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-xs font-black text-[#1C1917] truncate">Günün Fırsat Kuponu: YKS2026</span>
+                      <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-amber-100 text-amber-900 font-extrabold shrink-0">%25 İndirim</span>
                     </div>
-                    <span className="text-[11px] text-[#78716C]">YKS Fizik • ₺900/sa • ⭐ 5.0</span>
+                    <span className="text-[11px] text-[#78716C] block truncate mt-0.5">
+                      Tüm Soru Bankalarında Geçerli
+                    </span>
                   </div>
                 </div>
                 <button 
-                  onClick={onOpenRequestWizard}
-                  className="px-2.5 py-1.5 bg-white hover:bg-blue-50 border border-[#DDD7CD] text-blue-700 text-[11px] font-bold rounded-xl transition-colors shrink-0"
+                  className="px-2.5 py-1.5 bg-white group-hover/deal:bg-amber-600 group-hover/deal:text-white border border-[#DDD7CD] text-amber-800 text-[11px] font-bold rounded-xl transition-all shrink-0"
                 >
-                  Teklif İste
+                  Kodu Al 🏷️
                 </button>
               </div>
+
             </div>
 
-            {/* Quick Request Action Bar inside Card */}
+            {/* Quick Publisher Direct Access Banner */}
             <div className="p-3 rounded-2xl bg-gradient-to-r from-emerald-50 via-teal-50 to-amber-50 border border-emerald-200 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs">
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-                <span className="font-extrabold text-[#1C1917]">Özel Ders Talebi Oluştur:</span>
-                <span className="text-[#57534E]">15 dakikada en uygun 5 eğitmenden ücretsiz teklif al.</span>
+                <Store className="w-4 h-4 text-emerald-700 shrink-0" />
+                <span className="font-extrabold text-[#1C1917]">Yayınevi veya Dağıtıcı mısınız?</span>
+                <span className="text-[#57534E] hidden sm:inline">Kitap, soru bankası ve denemelerinizi saniyeler içinde satışa açın.</span>
               </div>
               <button
-                onClick={onOpenRequestWizard}
-                className="px-3 py-1.5 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs rounded-xl transition-all shrink-0 flex items-center gap-1 shadow-sm"
+                onClick={() => {
+                  if (onRequestAuthRole) {
+                    onRequestAuthRole('vendor');
+                  } else if (onRoleChange) {
+                    onRoleChange('vendor');
+                  }
+                }}
+                className="px-3.5 py-1.5 bg-emerald-700 hover:bg-emerald-800 text-white font-extrabold text-xs rounded-xl transition-all shrink-0 flex items-center gap-1 shadow-sm"
               >
-                <span>Talebi Başlat</span>
+                <span>🏬 Yayınevi Portalı</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>

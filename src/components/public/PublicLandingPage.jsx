@@ -86,17 +86,10 @@ export default function PublicLandingPage({
       {/* 2. MAIN LANDING CONTENT SECTIONS */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-12 sm:space-y-16">
         
-        {/* HERO SECTION WITH CONVERSION SEARCH & DASHBOARD MOCKUP */}
+        {/* HERO SECTION WITH CONVERSION SEARCH & PUBLISHER / BOOK SHOWCASE */}
         <Hero
-          selectedCity={selectedCity}
-          selectedDistrict={selectedDistrict}
-          selectedSubject={selectedSubject}
-          setSelectedSubject={setSelectedSubject}
-          onlineOnlyFilter={onlineOnlyFilter}
-          setOnlineOnlyFilter={setOnlineOnlyFilter}
-          onOpenRequestWizard={onOpenRequestWizard}
-          onOpenCreateProfile={onOpenCreateProfile}
-          tutorCount={filteredTeachers.length || teachers.length}
+          onRoleChange={onRoleChange}
+          onRequestAuthRole={onRequestAuthRole}
         />
 
         {/* SOCIAL PROOF 4-ITEM METRICS BAR */}
