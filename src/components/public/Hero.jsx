@@ -15,14 +15,18 @@ import {
   Check,
   Percent,
   Clock,
-  ExternalLink
+  ExternalLink,
+  X,
+  Gift,
+  CheckCircle2,
+  Info
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 /**
  * Hero: High-Converting 2-Column Landing Section.
  * Left Side: Powerful Headline, Value Proposition, Publisher Search & Direct Action CTAs.
- * Right Side: Permanent, Non-Dismissable "Günün Fırsat Kuponları & Kampanyalar" Side Ad Block.
+ * Right Side: Permanent, Clickable "Günün Fırsat Kuponları" Side Banner with Admin Detail Pop-up & Store Redirection.
  */
 export default function Hero({
   onRoleChange,
@@ -31,6 +35,7 @@ export default function Hero({
 }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedCouponModal, setSelectedCouponModal] = useState(null);
   const [copiedCode, setCopiedCode] = useState(null);
 
   const handleSearchSubmit = (e) => {
@@ -51,18 +56,29 @@ export default function Hero({
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleCopyCode = (code, e) => {
-    if (e) e.stopPropagation();
-    navigator.clipboard.writeText(code);
-    setCopiedCode(code);
+  // Open coupon modal, copy code, trigger confetti
+  const handleOpenCouponModal = (coupon) => {
+    navigator.clipboard.writeText(coupon.code);
+    setCopiedCode(coupon.code);
+    setSelectedCouponModal(coupon);
     confetti({
-      particleCount: 50,
+      particleCount: 60,
       spread: 60,
       origin: { y: 0.6 }
     });
-    setTimeout(() => {
-      setCopiedCode(null);
-    }, 2500);
+  };
+
+  // Copy code and navigate to the admin's specified URL
+  const handleGoToAdminUrl = (coupon) => {
+    navigator.clipboard.writeText(coupon.code);
+    const url = coupon.storeUrl || '#showcase';
+    if (url.startsWith('http')) {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    } else {
+      const el = document.querySelector(url);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+    setSelectedCouponModal(null);
   };
 
   // Top featured coupons for the permanent right-side banner
@@ -72,22 +88,31 @@ export default function Hero({
       code: 'KITAP30',
       title: 'Tüm Soru Bankası & Denemelerde %30 İndirim',
       discount: '%30 İNDİRİM',
-      store: 'Borsa Yayınları',
-      badge: '🔥 Günün Fırsatı'
+      storeName: 'Kitapyurdu & Borsa Yayınları',
+      storeUrl: 'https://www.kitapyurdu.com',
+      badge: '🔥 Günün Fırsatı',
+      description: 'Yayınevlerinin orijinal baskı soru bankası ve branş deneme sınavlarında geçerli sepette anında %30 net indirim sağlar.',
+      daysLeft: 7
     },
     {
       code: 'BORSA200',
       title: '500 ₺ Üzeri Siparişlerde Anında 200 ₺ İndirim',
       discount: '200 ₺ İNDİRİM',
-      store: 'Özel Ders Borsası',
-      badge: '⚡ Süper Kod'
+      storeName: 'Özel Ders Borsası Mağazası',
+      storeUrl: '#showcase',
+      badge: '⚡ Süper Fırsat',
+      description: '500 TL üzeri tüm kitap, deneme ve eğitim materyali sepetlerinizde ödeme ekranında anında 200 TL nakit indirim uygulanır.',
+      daysLeft: 12
     },
     {
       code: 'YKS2026',
       title: 'YKS & LGS Hazırlık Yayınlarında %25 İndirim',
       discount: '%25 İNDİRİM',
-      store: 'Borsa Akademi',
-      badge: '📚 Popüler'
+      storeName: 'D&R & Borsa Akademi',
+      storeUrl: 'https://www.dr.com.tr',
+      badge: '📚 Çok Satan',
+      description: '2026 YKS ve LGS müfredatına tam uyumlu video çözümlü fasikül ve denemelerde geçerli resmi yayıncı indirim kuponu.',
+      daysLeft: 25
     }
   ];
 
@@ -128,7 +153,7 @@ export default function Hero({
 
           {/* Subtext */}
           <p className="text-xs sm:text-sm lg:text-base text-[#57534E] font-medium leading-relaxed max-w-xl">
-            Önde gelen yayınevlerinin soru bankalarını ve deneme sınavı fasiküllerini doğrudan satın alın; sağdaki <strong className="text-[#1C1917]">indirim kuponlarını</strong> sepetinizde anında kullanın!
+            Önde gelen yayınevlerinin soru bankalarını ve deneme sınavı fasiküllerini doğrudan satın alın; sağdaki <strong className="text-[#1C1917]">indirim kuponlarına</strong> tıklayarak kodları anında kopyalayın ve mağazalarda kullanın!
           </p>
 
           {/* Search Bar Container */}
@@ -226,7 +251,7 @@ export default function Hero({
 
         </div>
 
-        {/* RIGHT COLUMN (5 COLS): PERMANENT "GÜNÜN FIRSAT KUPONLARI" SIDE REKLAM BANNER */}
+        {/* RIGHT COLUMN (5 COLS): PERMANENT & CLICKABLE "GÜNÜN FIRSAT KUPONLARI" SIDE BANNER */}
         <div className="lg:col-span-5">
           <div className="rounded-3xl bg-white border-2 border-amber-500/40 shadow-2xl overflow-hidden ring-1 ring-black/5 relative">
             
@@ -253,11 +278,11 @@ export default function Hero({
               </div>
 
               <p className="text-[11px] text-amber-100 font-medium leading-tight mt-2">
-                Sepetinizde veya mağazada anında indirim kazanmak için kodları kopyalayın:
+                Kupona tıklayın; detayları inceleyin, kodu kopyalayıp doğrudan mağaza sayfasına gidin:
               </p>
             </div>
 
-            {/* Coupons List (Permanently visible right side) */}
+            {/* Coupons List: CLICKABLE TO OPEN ADMIN DETAILS & REDIRECT */}
             <div className="p-4 space-y-3 bg-gradient-to-b from-[#FAF8F5] to-white">
               
               {sideCoupons.map((c, idx) => {
@@ -269,7 +294,9 @@ export default function Hero({
                 return (
                   <div 
                     key={idx}
-                    className="p-3 rounded-2xl bg-white border-2 border-dashed border-[#DDD7CD] hover:border-amber-500 transition-all flex items-center justify-between gap-2.5 shadow-sm group"
+                    onClick={() => handleOpenCouponModal(c)}
+                    className="p-3 rounded-2xl bg-white border-2 border-dashed border-[#DDD7CD] hover:border-amber-500 transition-all flex items-center justify-between gap-2.5 shadow-sm hover:shadow-md cursor-pointer group"
+                    title="Kupon Detayını Aç & Mağazaya Git"
                   >
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-1.5 mb-0.5">
@@ -280,33 +307,24 @@ export default function Hero({
                           {c.storeName || c.store || 'Özel Ders Borsası'}
                         </span>
                       </div>
-                      <div className="text-xs font-black text-[#1C1917] truncate leading-tight">
+                      <div className="text-xs font-black text-[#1C1917] group-hover:text-amber-600 transition-colors truncate leading-tight">
                         {title}
                       </div>
                     </div>
 
-                    {/* Copy Code CTA */}
+                    {/* Open / Copy Code CTA */}
                     <button
                       type="button"
-                      onClick={(e) => handleCopyCode(code, e)}
-                      className={`px-3 py-2 rounded-xl text-xs font-black flex items-center gap-1.5 transition-all shrink-0 ${
-                        isCopied 
-                          ? 'bg-emerald-600 text-white shadow-sm' 
-                          : 'bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 shadow-sm active:scale-95'
-                      }`}
-                      title="Kodu Panoya Kopyala"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleOpenCouponModal(c);
+                      }}
+                      className="px-3 py-2 rounded-xl text-xs font-black bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 shadow-sm active:scale-95 flex items-center gap-1.5 transition-all shrink-0 group-hover:bg-amber-500 group-hover:text-white group-hover:border-amber-500"
+                      title="Kuponu Aç & Kodu Al"
                     >
-                      {isCopied ? (
-                        <>
-                          <Check className="w-3.5 h-3.5" />
-                          <span>Alındı!</span>
-                        </>
-                      ) : (
-                        <>
-                          <Copy className="w-3.5 h-3.5 text-amber-700" />
-                          <span className="font-mono tracking-wider">{code}</span>
-                        </>
-                      )}
+                      <Copy className="w-3.5 h-3.5" />
+                      <span className="font-mono tracking-wider">{code}</span>
+                      <ExternalLink className="w-3 h-3 opacity-70" />
                     </button>
                   </div>
                 );
@@ -327,7 +345,7 @@ export default function Hero({
               <div className="text-center pt-1">
                 <span className="text-[10px] font-bold text-[#78716C] inline-flex items-center gap-1">
                   <Sparkles className="w-3 h-3 text-amber-600" />
-                  Kuponlar sepette veya yönlendirilen mağazada test edilmiştir.
+                  Kupona tıklandığında kod kopyalanır ve mağazaya yönlendirilir.
                 </span>
               </div>
 
@@ -337,6 +355,100 @@ export default function Hero({
         </div>
 
       </div>
+
+      {/* 🚀 3. INTERACTIVE COUPON DETAIL & STORE REDIRECT MODAL (ADMIN DEFINED DATA) */}
+      {selectedCouponModal && (
+        <div 
+          onClick={() => setSelectedCouponModal(null)}
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/85 backdrop-blur-md animate-fadeIn select-none"
+        >
+          <div 
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-md max-h-[92vh] overflow-y-auto rounded-3xl bg-white border border-[#E7E2D9] shadow-2xl p-5 sm:p-7 space-y-5 text-[#1C1917] relative animate-in zoom-in-95 duration-200"
+          >
+            {/* Close Button */}
+            <button 
+              type="button"
+              onClick={() => setSelectedCouponModal(null)}
+              className="absolute top-4 right-4 p-2 rounded-xl bg-[#F5F2EC] hover:bg-[#EFECE6] text-[#57534E] hover:text-[#1C1917] border border-[#DDD7CD] transition-colors"
+              title="Kapat"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
+            {/* Header / Store Badge */}
+            <div className="text-center space-y-2 pt-2">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-500 via-orange-500 to-rose-600 text-white flex items-center justify-center text-xl mx-auto shadow-lg shadow-orange-500/25">
+                <Gift className="w-7 h-7" />
+              </div>
+              
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-extrabold border border-emerald-200">
+                <Store className="w-3.5 h-3.5" />
+                <span>{selectedCouponModal.storeName || selectedCouponModal.store || 'Özel Ders Borsası'}</span>
+              </div>
+
+              {/* Admin Coupon Title */}
+              <h3 className="text-base sm:text-lg font-black text-[#1C1917] leading-snug">
+                {selectedCouponModal.title}
+              </h3>
+            </div>
+
+            {/* Big Coupon Code Box with Confetti Feedback */}
+            <div className="p-4 rounded-2xl bg-[#FAF8F5] border-2 border-dashed border-amber-500/60 text-center space-y-2">
+              <div className="text-[11px] font-extrabold text-emerald-700 uppercase tracking-wider flex items-center justify-center gap-1">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                <span>Kupon Kodu Panoya Kopyalandı!</span>
+              </div>
+
+              <div className="font-mono text-2xl sm:text-3xl font-black text-[#1C1917] tracking-wider py-1 select-all">
+                {selectedCouponModal.code}
+              </div>
+
+              <button
+                type="button"
+                onClick={() => {
+                  navigator.clipboard.writeText(selectedCouponModal.code);
+                  confetti({ particleCount: 40, spread: 40 });
+                }}
+                className="text-xs font-bold text-emerald-700 hover:text-emerald-800 underline inline-flex items-center gap-1"
+              >
+                <Copy className="w-3 h-3" />
+                <span>Tekrar Kopyala</span>
+              </button>
+            </div>
+
+            {/* Admin-Provided Description / Terms */}
+            {selectedCouponModal.description && (
+              <div className="p-3.5 rounded-2xl bg-slate-50 border border-[#E7E2D9] space-y-1 text-left">
+                <div className="flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-wider text-[#78716C]">
+                  <Info className="w-3 h-3 text-emerald-600" />
+                  <span>Admin Kampanya Koşulları & Detayı</span>
+                </div>
+                <p className="text-xs text-[#44403C] leading-relaxed font-medium">
+                  {selectedCouponModal.description}
+                </p>
+              </div>
+            )}
+
+            {/* Instruction */}
+            <p className="text-[11px] text-[#78716C] text-center leading-relaxed font-medium">
+              Kodunuz kopyalandı! Aşağıdaki butona tıklayarak mağazaya gidebilir, sepet adımında kuponunuzu yapıştırarak anında indirimi kullanabilirsiniz.
+            </p>
+
+            {/* Primary Action Button: Go to Admin's Specified Store Link */}
+            <button
+              type="button"
+              onClick={() => handleGoToAdminUrl(selectedCouponModal)}
+              className="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white font-black text-sm shadow-xl shadow-emerald-700/25 flex items-center justify-center gap-2 transition-transform hover:scale-[1.01] active:scale-95"
+            >
+              <span>{selectedCouponModal.storeName || 'Mağaza'} Sayfasına Git</span>
+              <ExternalLink className="w-4 h-4 text-emerald-200" />
+            </button>
+
+          </div>
+        </div>
+      )}
+
     </section>
   );
 }
