@@ -182,7 +182,15 @@ export default function App() {
   const [coupons, setCoupons] = useState(() => {
     try {
       const saved = localStorage.getItem('odb_coupons');
-      return saved ? JSON.parse(saved) : INITIAL_COUPONS;
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          const existingCodes = parsed.map(c => (c.code || '').toUpperCase());
+          const missing = INITIAL_COUPONS.filter(ic => !existingCodes.includes((ic.code || '').toUpperCase()));
+          return [...parsed, ...missing];
+        }
+      }
+      return INITIAL_COUPONS;
     } catch (e) {
       return INITIAL_COUPONS;
     }
