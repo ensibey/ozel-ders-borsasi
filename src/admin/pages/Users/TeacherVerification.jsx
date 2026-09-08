@@ -22,10 +22,14 @@ export default function TeacherVerification({ teachers = [], onUpdateTeacher }) 
 
   const filteredTeachers = teachers.filter(t => {
     const matchesFilter = filterState === 'all' ? true : filterState === 'verified' ? t.verified : !t.verified;
-    const matchesSearch = t.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          t.subject.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          t.university?.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesFilter && matchesSearch;
+    const query = searchQuery.trim().toLowerCase();
+    if (!query) return matchesFilter;
+
+    const nameMatch = (t.name || '').toLowerCase().includes(query);
+    const subjectMatch = (t.subject || '').toLowerCase().includes(query);
+    const eduMatch = (t.education || t.university || '').toLowerCase().includes(query);
+    const titleMatch = (t.title || '').toLowerCase().includes(query);
+    return matchesFilter && (nameMatch || subjectMatch || eduMatch || titleMatch);
   });
 
   const handleApproveTeacher = (teacher) => {
@@ -143,7 +147,7 @@ export default function TeacherVerification({ teachers = [], onUpdateTeacher }) 
               <div className="flex items-start justify-between gap-3 mb-3">
                 <div className="flex items-center gap-3">
                   <img
-                    src={t.image}
+                    src={t.avatar || t.image || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150'}
                     alt={t.name}
                     className="w-12 h-12 rounded-2xl object-cover ring-2 ring-slate-700 shrink-0"
                   />
@@ -169,16 +173,20 @@ export default function TeacherVerification({ teachers = [], onUpdateTeacher }) 
               {/* Badges / University info */}
               <div className="p-3 bg-slate-950/60 rounded-2xl border border-slate-800/80 space-y-1.5 text-xs text-slate-300 mb-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-slate-500">Üniversite:</span>
-                  <span className="font-semibold text-slate-200">{t.university || 'Boğaziçi Üni.'}</span>
+                  <span className="text-slate-500">Eğitim:</span>
+                  <span className="font-semibold text-slate-200 truncate max-w-[160px]" title={t.education || t.university}>
+                    {t.education || t.university || 'Boğaziçi Üniv.'}
+                  </span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-slate-500">Tecrübe:</span>
-                  <span className="font-semibold text-slate-200">{t.experience || '6 Yıl'}</span>
+                  <span className="text-slate-500">Deneyim:</span>
+                  <span className="font-semibold text-slate-200">
+                    {t.experienceYears ? `${t.experienceYears} Yıl` : (t.experience || '5+ Yıl')}
+                  </span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-slate-500">Saatlik Ücret:</span>
-                  <span className="font-bold text-emerald-400">₺{t.hourlyRate} / saat</span>
+                  <span className="font-bold text-emerald-400">₺{t.hourlyRate || 500} / saat</span>
                 </div>
               </div>
             </div>

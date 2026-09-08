@@ -206,8 +206,17 @@ export default function App() {
     setCoupons(prev => [newCoupon, ...prev]);
   };
 
-  const handleUpdateCoupon = (updatedCoupon) => {
-    setCoupons(prev => prev.map(c => c.id === updatedCoupon.id ? updatedCoupon : c));
+  const handleUpdateCoupon = (idOrUpdated, maybePatch) => {
+    setCoupons(prev => {
+      let updated;
+      if (typeof idOrUpdated === 'string') {
+        const existing = prev.find(c => c.id === idOrUpdated);
+        updated = { ...existing, ...maybePatch, id: idOrUpdated };
+      } else {
+        updated = idOrUpdated;
+      }
+      return prev.map(c => c.id === updated.id ? { ...c, ...updated } : c);
+    });
   };
 
   const handleDeleteCoupon = (couponId) => {
@@ -421,14 +430,32 @@ export default function App() {
     showToast('Değerlendirmeniz ve yorumunuz kaydedildi, teşekkür ederiz!', 'success');
   };
 
-  const handleUpdateTeacher = (updated) => {
-    setTeachers(prev => prev.map(t => t.id === updated.id ? updated : t));
-    updateTeacherApi(updated);
+  const handleUpdateTeacher = (idOrUpdated, maybePatch) => {
+    setTeachers(prev => {
+      let updated;
+      if (typeof idOrUpdated === 'string') {
+        const existing = prev.find(t => t.id === idOrUpdated);
+        updated = { ...existing, ...maybePatch, id: idOrUpdated };
+      } else {
+        updated = idOrUpdated;
+      }
+      updateTeacherApi(updated);
+      return prev.map(t => t.id === updated.id ? { ...t, ...updated } : t);
+    });
     showToast('Eğitmen profili güncellendi.', 'success');
   };
 
-  const handleUpdateProduct = (updated) => {
-    setProducts(prev => prev.map(p => p.id === updated.id ? updated : p));
+  const handleUpdateProduct = (idOrUpdated, maybePatch) => {
+    setProducts(prev => {
+      let updated;
+      if (typeof idOrUpdated === 'string') {
+        const existing = prev.find(p => p.id === idOrUpdated);
+        updated = { ...existing, ...maybePatch, id: idOrUpdated };
+      } else {
+        updated = idOrUpdated;
+      }
+      return prev.map(p => p.id === updated.id ? { ...p, ...updated } : p);
+    });
     showToast('Ürün bilgisi güncellendi.', 'success');
   };
 

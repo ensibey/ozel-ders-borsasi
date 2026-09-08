@@ -21,7 +21,9 @@ export default function TeacherDashboard({ teacher, teachers = [], platformCommi
   if (!activeTeacher) return null;
 
   const handleCopyCode = () => {
-    navigator.clipboard.writeText(activeTeacher.referralCode);
+    try {
+      navigator.clipboard?.writeText(activeTeacher.referralCode || 'BORSA2026');
+    } catch (e) {}
     setCopied(true);
     confetti({ particleCount: 50, spread: 50 });
     setTimeout(() => setCopied(false), 2000);

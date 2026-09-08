@@ -172,10 +172,11 @@ export default function UserManagement({ teachers = [] }) {
     return users.filter(user => {
       const matchesRole = roleFilter === 'ALL' || user.role === roleFilter;
       const matchesStatus = statusFilter === 'ALL' || user.status === statusFilter;
-      const matchesSearch = debouncedQuery === '' || 
-        user.name.toLowerCase().includes(debouncedQuery.toLowerCase()) ||
-        user.email.toLowerCase().includes(debouncedQuery.toLowerCase()) ||
-        (user.phone && user.phone.includes(debouncedQuery));
+      const query = (debouncedQuery || '').trim().toLowerCase();
+      const matchesSearch = !query || 
+        (user.name || '').toLowerCase().includes(query) ||
+        (user.email || '').toLowerCase().includes(query) ||
+        (user.phone && user.phone.includes(query));
       return matchesRole && matchesStatus && matchesSearch;
     });
   }, [users, roleFilter, statusFilter, debouncedQuery]);

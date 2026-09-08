@@ -30,10 +30,11 @@ export default function ModerationPanel({
 
   const handleToggleProductStatus = (product) => {
     const nextStatus = product.status === 'inactive' ? 'active' : 'inactive';
-    const updated = { ...product, status: nextStatus };
+    const updated = { ...product, status: nextStatus, inStock: nextStatus === 'active' };
     if (onUpdateProduct) onUpdateProduct(updated);
 
-    logAction('PRODUCT_MODERATED', 'MARKETPLACE', product.title, `Ürün yayın durumu "${nextStatus.toUpperCase()}" olarak güncellendi.`, 'info');
+    const prodName = product.name || product.title || 'Ürün';
+    logAction('PRODUCT_MODERATED', 'MARKETPLACE', prodName, `Ürün yayın durumu "${nextStatus.toUpperCase()}" olarak güncellendi.`, 'info');
   };
 
   return (
@@ -136,9 +137,9 @@ export default function ModerationPanel({
             >
               <div>
                 <div className="flex items-center gap-3 mb-3">
-                  <img src={prod.coverImage || 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=120&auto=format&fit=crop&q=80'} alt={prod.title} className="w-12 h-12 rounded-xl object-cover ring-1 ring-slate-700" />
+                  <img src={prod.image || prod.coverImage || 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=120&auto=format&fit=crop&q=80'} alt={prod.name || prod.title} className="w-12 h-12 rounded-xl object-cover ring-1 ring-slate-700" />
                   <div>
-                    <h3 className="font-bold text-white text-sm line-clamp-1">{prod.title}</h3>
+                    <h3 className="font-bold text-white text-sm line-clamp-1">{prod.name || prod.title || 'Materyal'}</h3>
                     <p className="text-xs text-indigo-400 font-semibold">{prod.category || 'YKS Deneme'}</p>
                   </div>
                 </div>
@@ -150,7 +151,7 @@ export default function ModerationPanel({
                   </div>
                   <div className="flex justify-between">
                     <span className="text-slate-500">Yazar / Kurum:</span>
-                    <span className="font-semibold text-slate-300">{prod.author || 'Eğitim Vadisi'}</span>
+                    <span className="font-semibold text-slate-300">{prod.vendor || prod.author || 'Borsa Akademi'}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-slate-500">Toplam Satış:</span>

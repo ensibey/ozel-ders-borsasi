@@ -274,13 +274,13 @@ export default function VendorDashboard({ products = [], onAddProduct, onDeleteP
     setCampaignName('');
   };
 
-  // Filtered Catalog
   const filteredCatalog = useMemo(() => {
     return products.filter(p => {
       const matchesCat = selectedCatFilter === 'all' || p.category === selectedCatFilter;
-      const matchesSearch = productSearch === '' || 
-        p.name.toLowerCase().includes(productSearch.toLowerCase()) ||
-        p.vendor.toLowerCase().includes(productSearch.toLowerCase());
+      const q = productSearch.trim().toLowerCase();
+      const matchesSearch = !q || 
+        (p.name || '').toLowerCase().includes(q) ||
+        (p.vendor || '').toLowerCase().includes(q);
       return matchesCat && matchesSearch;
     });
   }, [products, selectedCatFilter, productSearch]);

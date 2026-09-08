@@ -9,6 +9,7 @@ export default function CartDrawer({ isOpen, onClose, cartItems, onRemoveFromCar
   const [couponCode, setCouponCode] = useState('');
   const [discountAmount, setDiscountAmount] = useState(0);
   const [appliedCoupon, setAppliedCoupon] = useState('');
+  const [couponError, setCouponError] = useState('');
   const [validationError, setValidationError] = useState('');
   const [formData, setFormData] = useState({
     name: 'Ahmet Yılmaz',
@@ -53,7 +54,12 @@ export default function CartDrawer({ isOpen, onClose, cartItems, onRemoveFromCar
 
   const handleApplyCoupon = (e) => {
     if (e) e.preventDefault();
+    setCouponError('');
     const code = couponCode.trim().toUpperCase();
+    if (!code) {
+      setCouponError('Lütfen bir kupon kodu giriniz.');
+      return;
+    }
     
     // Check dynamic coupons from localStorage
     let allCoupons = [];
@@ -62,7 +68,7 @@ export default function CartDrawer({ isOpen, onClose, cartItems, onRemoveFromCar
       if (saved) allCoupons = JSON.parse(saved);
     } catch (err) {}
 
-    const matched = allCoupons.find(c => c.code.toUpperCase() === code && c.isActive !== false);
+    const matched = allCoupons.find(c => c.code && c.code.toUpperCase() === code && c.isActive !== false);
 
     if (matched) {
       const disc = matched.discountType === 'percent'
@@ -70,19 +76,28 @@ export default function CartDrawer({ isOpen, onClose, cartItems, onRemoveFromCar
         : Math.min(rawTotal, matched.discountValue);
       setDiscountAmount(disc);
       setAppliedCoupon(`${matched.code} (${matched.discountType === 'percent' ? `%${matched.discountValue}` : `${matched.discountValue} ₺`} İndirim)`);
+      setCouponCode('');
       confetti({ particleCount: 60, spread: 60 });
     } else if (code === 'BORSA2026' || code === 'KITAP30') {
       const disc = Math.round(rawTotal * 0.3);
       setDiscountAmount(disc);
       setAppliedCoupon(`${code} (%30 İndirim)`);
+      setCouponCode('');
       confetti({ particleCount: 60, spread: 60 });
     } else if (code === 'BORSA200') {
       setDiscountAmount(Math.min(rawTotal, 200));
       setAppliedCoupon('BORSA200 (200 ₺ İndirim)');
+      setCouponCode('');
       confetti({ particleCount: 60, spread: 60 });
     } else {
-      alert('Geçersiz indirim kuponu! Örnek kodlar: KITAP30, BORSA200, YKS25');
+      setCouponError('Geçersiz indirim kuponu! (Örn: KITAP30, BORSA200, YKS2026)');
     }
+  };
+
+  const handleRemoveCoupon = () => {
+    setAppliedCoupon('');
+    setDiscountAmount(0);
+    setCouponError('');
   };
 
   const handlePay = (e) => {
@@ -327,22 +342,38 @@ export default function CartDrawer({ isOpen, onClose, cartItems, onRemoveFromCar
                       <input
                         type="text"
                         value={couponCode}
-                        onChange={(e) => setCouponCode(e.target.value)}
-                        placeholder="İndirim Kodu (BORSA2026)"
-                        className="w-full glass-input rounded-xl pl-8 pr-3 py-2 text-xs text-white"
+                        onChange={(e) => {
+                          setCouponCode(e.target.value);
+                          if (couponError) setCouponError('');
+                        }}
+                        placeholder="İndirim Kodu (Örn: KITAP30)"
+                        className="w-full glass-input rounded-xl pl-8 pr-3 py-2 text-xs text-white uppercase font-bold"
                       />
                     </div>
                     <button
                       type="submit"
-                      className="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-indigo-300 text-xs font-bold border border-slate-700"
+                      className="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-indigo-300 text-xs font-bold border border-slate-700 transition-colors"
                     >
                       Uygula
                     </button>
                   </form>
 
+                  {couponError && (
+                    <div className="text-[11px] text-rose-400 font-bold bg-rose-500/10 p-2 rounded-lg border border-rose-500/20">
+                      ✕ {couponError}
+                    </div>
+                  )}
+
                   {appliedCoupon && (
-                    <div className="text-[11px] text-emerald-400 font-bold bg-emerald-500/10 p-2 rounded-lg border border-emerald-500/20">
-                      ✓ Kupon Uygulandı: {appliedCoupon}
+                    <div className="text-[11px] text-emerald-400 font-bold bg-emerald-500/10 p-2 rounded-lg border border-emerald-500/20 flex items-center justify-between">
+                      <span>✓ Kupon Uygulandı: {appliedCoupon}</span>
+                      <button
+                        type="button"
+                        onClick={handleRemoveCoupon}
+                        className="text-[10px] text-rose-400 hover:text-rose-300 underline font-bold"
+                      >
+                        Kaldır
+                      </button>
                     </div>
                   )}
                 </>

@@ -14,10 +14,11 @@ export default function StoreSection({ products, onAddToCart }) {
 
   const filteredProducts = products.filter(p => {
     const matchesCategory = selectedCategory === 'Tümü' || p.category === selectedCategory;
-    const matchesSearch = searchQuery === '' || 
-      p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.vendor.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const q = searchQuery.trim().toLowerCase();
+    const matchesSearch = !q || 
+      (p.name || '').toLowerCase().includes(q) ||
+      (p.vendor || '').toLowerCase().includes(q) ||
+      (p.description || '').toLowerCase().includes(q);
     return matchesCategory && matchesSearch;
   });
 
