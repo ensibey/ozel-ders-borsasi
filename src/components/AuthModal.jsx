@@ -67,17 +67,17 @@ export default function AuthModal({ isOpen, onClose, targetRole = 'vendor', onAu
       return;
     }
 
-    // Yayinevi / Admin Girisi
-    const isAdmin = 
-      trimmedEmail.includes('admin') || 
-      trimmedPassword === 'admin123' || 
-      trimmedPassword === 'admin';
-
-    if (isAdmin) {
-      confetti({ particleCount: 60, spread: 60 });
-      if (onAuthSuccess) onAuthSuccess('admin');
-      onClose();
-      return;
+    // Admin Girisi — Tek ve Kesin E-posta / Sifre
+    if (trimmedEmail === 'admin@ozeldersborsasi.com') {
+      if (trimmedPassword === 'admin123') {
+        confetti({ particleCount: 60, spread: 60 });
+        if (onAuthSuccess) onAuthSuccess('admin');
+        onClose();
+        return;
+      } else {
+        setErrorMsg('E-posta adresi veya sifre hatali.');
+        return;
+      }
     }
 
     // Yayinevi standard giris
