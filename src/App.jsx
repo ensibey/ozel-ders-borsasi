@@ -34,6 +34,7 @@ import IncomingProposalsModal from './components/IncomingProposalsModal';
 import AuthModal from './components/AuthModal';
 import ToastNotification from './components/ToastNotification';
 import Footer from './components/Footer';
+import SiteClosedScreen from './components/SiteClosedScreen';
 
 import { 
   INITIAL_TEACHERS, 
@@ -513,157 +514,28 @@ export default function App() {
     return 0;
   });
 
-  // If in public general role, render the PublicLandingPage component
-  if (currentRole === 'general') {
+  // SİTE KAPATILMA KORUMASI: Tüm ziyaretçiler ve roller için site kapatılmıştır, sadece admin girişi yapılabilir
+  if (currentRole !== 'admin') {
     return (
-      <div className="min-h-screen bg-[#F4F0EA] text-[#1C1917] selection:bg-emerald-600 selection:text-white">
-        
-        {/* Secret Admin Banner if hash #admin */}
-        {window.location.hash.includes('admin') && (
-          <div className="bg-amber-600 text-slate-950 px-4 py-2 text-xs font-bold flex items-center justify-between z-50">
-            <span>🔒 Yönetici Modu Aktif (Gizli Rota: #admin)</span>
-            <button onClick={() => { window.location.hash = ''; setCurrentRole('general'); }} className="underline">
-              ← Genel Pazara Dön
-            </button>
-          </div>
-        )}
-
-        <PublicLandingPage
-          teachers={teachers}
-          filteredTeachers={filteredTeachers}
-          products={products}
-          serviceRequests={serviceRequests}
-          selectedCity={selectedCity}
-          selectedDistrict={selectedDistrict}
-          selectedSubject={selectedSubject}
-          setSelectedSubject={setSelectedSubject}
-          sortOrder={sortOrder}
-          setSortOrder={setSortOrder}
-          onlineOnlyFilter={onlineOnlyFilter}
-          setOnlineOnlyFilter={setOnlineOnlyFilter}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          onOpenLocationModal={() => setIsLocationModalOpen(true)}
-          onOpenRequestWizard={() => setIsRequestWizardOpen(true)}
-          onOpenCreateProfile={() => setIsCreateProfileOpen(true)}
-          onOpenLeaderboard={() => setIsLeaderboardOpen(true)}
-          onOpenAuthModal={(role) => setPendingAuthRole(role || 'student')}
-          onOpenFilterModal={() => setIsFilterModalOpen(true)}
-          onSelectTeacher={(teacher) => setSelectedTeacherModal(teacher)}
-          onBookLesson={(teacher, slot) => handleBookLesson(teacher, slot)}
-          onOpenReview={(teacher) => setReviewTeacherModal(teacher)}
-          onAddToCart={handleAddToCart}
-          onAddBidToRequest={handleAddBidToRequest}
-          onRoleChange={setCurrentRole}
-          onRequestAuthRole={(role) => setPendingAuthRole(role)}
-          onOpenClassroom={() => setIsClassroomOpen(true)}
-          onOpenExamSimulator={() => setIsExamSimulatorOpen(true)}
-          onOpenPomodoro={() => setIsPomodoroOpen(true)}
-          onOpenCertificate={() => setIsCertificateOpen(true)}
-          onOpenThemeCustomizer={() => setIsThemeCustomizerOpen(true)}
-          onOpenAffiliateModal={() => setIsAffiliateModalOpen(true)}
-          onOpenCart={() => setIsCartOpen(true)}
-          cartCount={cart.reduce((acc, i) => acc + (i.quantity || 1), 0)}
-          coupons={coupons}
-        />
-
-        {/* MODALS RENDER AREA FOR PUBLIC LANDING PAGE */}
-        <TeacherLeaderboardModal
-          isOpen={isLeaderboardOpen}
-          onClose={() => setIsLeaderboardOpen(false)}
-          teachers={teachers}
-          onSelectTeacher={(t) => setSelectedTeacherModal(t)}
-        />
-        <LocationModal
-          isOpen={isLocationModalOpen}
-          onClose={() => setIsLocationModalOpen(false)}
-          selectedCity={selectedCity}
-          selectedDistrict={selectedDistrict}
-          onSaveLocation={handleSaveLocation}
-        />
-
-        <ServiceRequestWizardModal
-          isOpen={isRequestWizardOpen}
-          onClose={() => setIsRequestWizardOpen(false)}
-          selectedCity={selectedCity}
-          selectedDistrict={selectedDistrict}
-          onRequestCreated={handleCreateRequest}
-        />
-
-        <TeacherProfileWizardModal
-          isOpen={isCreateProfileOpen}
-          onClose={() => setIsCreateProfileOpen(false)}
-          onCreateTeacherProfile={handleCreateTeacherProfile}
-          selectedCity={selectedCity}
-          selectedDistrict={selectedDistrict}
-        />
-
-        <TeacherDetailModal
-          isOpen={!!selectedTeacherModal}
-          onClose={() => setSelectedTeacherModal(null)}
-          teacher={selectedTeacherModal}
-          onBookLesson={handleBookLesson}
-        />
-
-        <TeacherFilterModal
-          isOpen={isFilterModalOpen}
-          onClose={() => setIsFilterModalOpen(false)}
-          maxRate={advancedFilters.maxRate}
-          onApplyFilters={(filters) => setAdvancedFilters(filters)}
-          onResetFilters={() => setAdvancedFilters({ maxRate: 1500, minRating: 0, verifiedOnly: false, minExperience: 0 })}
-        />
-
-        <ReviewModal
-          isOpen={!!reviewTeacherModal}
-          onClose={() => setReviewTeacherModal(null)}
-          teacher={reviewTeacherModal}
-          onSubmitReview={handleSubmitReview}
-        />
-
-        <CartDrawer
-          isOpen={isCartOpen}
-          onClose={() => setIsCartOpen(false)}
-          cartItems={cart}
-          onRemoveFromCart={handleRemoveFromCart}
-          onClearCart={handleClearCart}
-          onUpdateQuantity={handleUpdateCartQuantity}
-          onPurchaseSuccess={(items) => {
-            setPurchasedProducts(prev => [...items, ...prev]);
-            showToast(`${items.length} materyal Dijital Kütüphanenize eklendi!`, 'success');
-          }}
-        />
-
-        <VirtualClassroomModal
-          isOpen={isClassroomOpen}
-          onClose={() => setIsClassroomOpen(false)}
-          tutorName={selectedTeacherModal?.name}
-          subject={selectedTeacherModal?.subject}
-          onLessonEnd={handleLessonFinished}
-        />
-
-        <ExamSimulatorModal
-          isOpen={isExamSimulatorOpen}
-          onClose={() => setIsExamSimulatorOpen(false)}
-        />
-
-        <PomodoroTimerModal
-          isOpen={isPomodoroOpen}
-          onClose={() => setIsPomodoroOpen(false)}
-        />
+      <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-rose-500 selection:text-white">
+        <SiteClosedScreen onOpenAdminLogin={() => setPendingAuthRole('admin')} />
 
         <AuthModal
           isOpen={!!pendingAuthRole}
           onClose={() => setPendingAuthRole(null)}
-          targetRole={pendingAuthRole}
+          targetRole="admin"
           onAuthSuccess={(role) => {
-            setCurrentRole(role);
-            setPendingAuthRole(null);
-            showToast(`Giriş başarılı: ${role.toUpperCase()} portalına yönlendirildiniz.`, 'success');
+            if (role === 'admin') {
+              setCurrentRole('admin');
+              setPendingAuthRole(null);
+              showToast('Yönetici girişi başarılı. Hoş geldiniz.', 'success');
+            } else {
+              showToast('Platform hizmete kapatılmıştır.', 'error');
+            }
           }}
         />
 
         <ToastNotification toast={toast} onClose={() => setToast(null)} />
-
       </div>
     );
   }
