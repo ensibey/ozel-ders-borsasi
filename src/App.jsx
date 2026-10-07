@@ -514,31 +514,12 @@ export default function App() {
     return 0;
   });
 
-  // SİTE KAPATILMA KORUMASI: Tüm ziyaretçiler ve roller için site kapatılmıştır, sadece admin girişi yapılabilir
-  if (currentRole !== 'admin') {
-    return (
-      <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-rose-500 selection:text-white">
-        <SiteClosedScreen onOpenAdminLogin={() => setPendingAuthRole('admin')} />
-
-        <AuthModal
-          isOpen={!!pendingAuthRole}
-          onClose={() => setPendingAuthRole(null)}
-          targetRole="admin"
-          onAuthSuccess={(role) => {
-            if (role === 'admin') {
-              setCurrentRole('admin');
-              setPendingAuthRole(null);
-              showToast('Yönetici girişi başarılı. Hoş geldiniz.', 'success');
-            } else {
-              showToast('Platform hizmete kapatılmıştır.', 'error');
-            }
-          }}
-        />
-
-        <ToastNotification toast={toast} onClose={() => setToast(null)} />
-      </div>
-    );
-  }
+  // TAM KAPATMA: Kimse (admin dahil) hiçbir yerden ulaşamaz. Kesin kapatılma ekranı.
+  return (
+    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-rose-500 selection:text-white">
+      <SiteClosedScreen />
+    </div>
+  );
 
   // ISOLATED ADMIN PORTAL (ZERO-LEAKAGE RBAC & INDEPENDENT LAYOUT)
   if (currentRole === 'admin') {

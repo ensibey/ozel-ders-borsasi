@@ -1,11 +1,10 @@
-import React from 'react';
-import { ShieldAlert, Lock, Mail, AlertTriangle, Power } from 'lucide-react';
+import { ShieldAlert, Mail, AlertTriangle, Power } from 'lucide-react';
 
 /**
  * SiteClosedScreen:
  * Siteye ulaşmaya çalışan tüm ziyaretçilerin karşılaştığı resmi kapatılma ekranı.
  */
-export default function SiteClosedScreen({ onOpenAdminLogin }) {
+export default function SiteClosedScreen() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-between selection:bg-rose-500 selection:text-white font-sans relative overflow-hidden select-none">
       
@@ -92,20 +91,9 @@ export default function SiteClosedScreen({ onOpenAdminLogin }) {
 
       </main>
 
-      {/* Footer & Discreet Admin Login */}
-      <footer className="p-6 text-center text-xs text-slate-600 relative z-10 max-w-6xl w-full mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+      {/* Footer */}
+      <footer className="p-6 text-center text-xs text-slate-600 relative z-10 max-w-6xl w-full mx-auto flex items-center justify-center">
         <span>Özel Ders Borsası Platformu • Resmi Kapatılma Tebligatı</span>
-        
-        {/* Discreet Admin Login Trigger */}
-        <button
-          type="button"
-          onClick={onOpenAdminLogin}
-          className="text-slate-500 hover:text-slate-300 transition-colors flex items-center gap-1.5 py-1 px-2.5 rounded-lg hover:bg-slate-900 text-[11px] font-semibold"
-          title="Yönetici Portalı Girişi"
-        >
-          <Lock className="w-3 h-3" />
-          <span>Yönetici Girişi</span>
-        </button>
       </footer>
 
     </div>
